@@ -6,15 +6,15 @@ defmodule YappCast.Repo do
 
   @doc "The URL to reach the database."
   defp url(:dev) do
-    "ecto://user:pass@localhost/yapp_cast_repo_dev"
+    "ecto://postgres@localhost/yapp_cast_dev"
   end
 
   defp url(:test) do
-    "ecto://user:pass@localhost/yapp_cast_repo_test?size=1&max_overflow=0"
+    "ecto://postgres@localhost/yapp_cast_test?size=1&max_overflow=0"
   end
 
   defp url(:prod) do
-    "ecto://user:pass@localhost/yapp_cast_repo_prod"
+    "ecto://postgres@localhost/yapp_cast_repo_prod"
   end
 
   @doc "The priv directory to load migrations and metadata."
