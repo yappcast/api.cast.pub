@@ -3,6 +3,7 @@ defmodule YappCast.Models.User do
 
   schema "users" do
     field :username, :string
+    field :password, :string
     field :email, :string
     has_many :companies, YappCast.Models.Company
     has_many :user_company_permissions, YappCast.Models.UserCompanyPermission

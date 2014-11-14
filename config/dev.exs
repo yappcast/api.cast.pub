@@ -6,3 +6,6 @@ config :phoenix, YappCast.Router,
 
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
+
+config :yapp_cast,
+  database_url: "ecto://postgres@localhost/yapp_cast_dev"

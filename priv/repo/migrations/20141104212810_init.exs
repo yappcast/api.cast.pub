@@ -7,6 +7,7 @@ defmodule YappCast.Repo.Migrations.Init do
       CREATE TABLE IF NOT EXISTS users (
         id serial PRIMARY KEY, 
         username varchar(100) UNIQUE NOT NULL, 
+        password varchar NOT NULL, 
         email varchar(255) UNIQUE NOT NULL
       )
       """,

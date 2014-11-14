@@ -18,3 +18,6 @@ config :phoenix, YappCast.Router,
 
 config :logger, :console,
   level: :info
+
+config :yapp_cast,
+  database_url: "ecto://postgres@localhost/yapp_cast_prod"

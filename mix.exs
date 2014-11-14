@@ -31,6 +31,7 @@ defmodule YappCast.Mixfile do
      {:poison, "~> 1.2.0"},
      {:cmark, "~> 0.2.0"},
      {:joken, "~> 0.6.0"},
-     {:plug_jwt, "~> 0.3.0"}]
+     {:plug_jwt, "~> 0.3.1"},
+     {:plug_cors, "~> 0.2.1"}]
   end
 end
