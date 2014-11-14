@@ -28,6 +28,9 @@ defmodule YappCast.Mixfile do
      {:ecto, "~> 0.2.0"},
      {:vex, "~> 0.5.0"},
      {:canada, "~> 1.0.0"},
-     {:poison, "~> 1.2.0"}]
+     {:poison, "~> 1.2.0"},
+     {:cmark, "~> 0.2.0"},
+     {:joken, "~> 0.6.0"},
+     {:plug_jwt, "~> 0.3.0"}]
   end
 end
