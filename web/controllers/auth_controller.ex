@@ -4,7 +4,7 @@ defmodule YappCast.AuthController do
   plug :action
 
   def create(conn, _params) do
-    json conn, Poison.encode!(%{})
+    text conn, "ok"
   end
   
 end
