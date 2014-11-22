@@ -1,5 +1,6 @@
 defmodule YappCast.Models.Podcast do
   use Ecto.Model
+  use Vex.Struct
 
   schema "podcasts" do
     field :name, :string
@@ -9,4 +10,7 @@ defmodule YappCast.Models.Podcast do
     has_many :episodes, YappCast.Models.Episode
     has_many :user_podcast_permissions, YappCast.Models.UserPodcastPermission
   end
+
+  validates :name, presence: true, length: [max: 255]
+  validates :slug, presence: true, length: [max: 255]
 end

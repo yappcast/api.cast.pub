@@ -21,3 +21,4 @@ config :logger, :console,
 
 config :yapp_cast,
   database_url: "ecto://postgres@localhost/yapp_cast_prod"
+  password_work_factor: 12,

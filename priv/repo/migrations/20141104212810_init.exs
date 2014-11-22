@@ -6,9 +6,8 @@ defmodule YappCast.Repo.Migrations.Init do
       """
       CREATE TABLE IF NOT EXISTS users (
         id serial PRIMARY KEY, 
-        username varchar(100) UNIQUE NOT NULL, 
-        password varchar NOT NULL, 
-        email varchar(255) UNIQUE NOT NULL
+        email varchar(255) UNIQUE NOT NULL,
+        password varchar NOT NULL
       )
       """,
       """
@@ -16,7 +15,7 @@ defmodule YappCast.Repo.Migrations.Init do
         id serial PRIMARY KEY, 
         name varchar(255) UNIQUE NOT NULL, 
         slug varchar(255) UNIQUE NOT NULL, 
-        user_id int references users(id) 
+        user_id int references users(id) ON DELETE CASCADE 
       )
       """,
       """
@@ -25,7 +24,7 @@ defmodule YappCast.Repo.Migrations.Init do
         name varchar(255) NOT NULL, 
         slug varchar(255) NOT NULL, 
         cover_url varchar(255) NOT NULL, 
-        company_id int references companies(id)
+        company_id int references companies(id) ON DELETE CASCADE
       )
       """,
       """
@@ -36,14 +35,14 @@ defmodule YappCast.Repo.Migrations.Init do
         cover_url varchar(255), 
         media_url varchar(255), 
         published bit NOT NULL, 
-        podcast_id int references podcasts(id)
+        podcast_id int references podcasts(id) ON DELETE CASCADE
       )
       """,
       """
       CREATE TABLE IF NOT EXISTS user_company_permissions (
         id serial PRIMARY KEY, 
-        user_id int references users(id),
-        company_id int references companies(id),
+        user_id int references users(id) ON DELETE CASCADE,
+        company_id int references companies(id) ON DELETE CASCADE,
         can_add bit NOT NULL, 
         can_edit bit NOT NULL, 
         can_delete bit NOT NULL
@@ -52,15 +51,14 @@ defmodule YappCast.Repo.Migrations.Init do
       """
       CREATE TABLE IF NOT EXISTS user_podcast_permissions (
         id serial PRIMARY KEY, 
-        user_id int references users(id),
-        podcast_id int references companies(id),
+        user_id int references users(id) ON DELETE CASCADE,
+        podcast_id int references companies(id) ON DELETE CASCADE,
         can_view bit NOT NULL, 
         can_add bit NOT NULL, 
         can_edit bit NOT NULL, 
         can_delete bit NOT NULL
       )
       """,
-      "CREATE UNIQUE INDEX users_username_idx ON users ((lower(username)))",
       "CREATE UNIQUE INDEX users_email_idx ON users ((lower(email)))",
 
       "CREATE UNIQUE INDEX companies_name_idx ON companies ((lower(name)))",
@@ -85,7 +83,6 @@ defmodule YappCast.Repo.Migrations.Init do
 
   def down do
     [
-      "DROP INDEX IF EXISTS users_username_idx",
       "DROP INDEX IF EXISTS users_email_idx",
       "DROP INDEX IF EXISTS companies_name_idx",
       "DROP INDEX IF EXISTS companies_slug_idx",

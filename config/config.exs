@@ -28,7 +28,8 @@ config :logger, :console,
 config :yapp_cast,
   database_url: "ecto://postgres@localhost/yapp_cast_dev",
   key: "secret",
-  token_expires: 3000
+  token_expires: 3000,
+  password_work_factor: 4
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

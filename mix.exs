@@ -14,25 +14,33 @@ defmodule YappCast.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [mod: {YappCast, []},
-     applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto]]
+    [
+      mod: {YappCast, []},
+      applications: [
+        :phoenix, :cowboy, :logger, :postgrex, :ecto, 
+        :vex, :canada, :poison, :cmark, :joken, 
+        :plug_cors, :plug_jwt, :bcrypt
+      ]
+    ]
   end
 
   # Specifies your project dependencies
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "0.5.0"},
-     {:cowboy, "~> 1.0"},
-     {:postgrex, ">= 0.0.0"},
-     {:ecto, "~> 0.2.0"},
-     {:vex, "~> 0.5.0"},
-     {:canada, "~> 1.0.0"},
-     {:poison, "~> 1.2.0"},
-     {:cmark, "~> 0.2.0"},
-     {:joken, "~> 0.6.0"},
-     {:plug_jwt, "~> 0.3.1"},
-     {:plug_cors, "~> 0.3.0"},
-     {:shouldi, env: :test}]
+    [
+      {:phoenix, "0.5.0"},
+      {:cowboy, "~> 1.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:ecto, "~> 0.2.0"},
+      {:vex, "~> 0.5.0"},
+      {:canada, "~> 1.0.0"},
+      {:poison, "~> 1.2.0"},
+      {:cmark, "~> 0.2.0"},
+      {:joken, "~> 0.6.2"},
+      {:plug_jwt, "~> 0.3.3"},
+      {:plug_cors, "~> 0.3.1"},
+      {:bcrypt, github: "opscode/erlang-bcrypt"}
+   ]
   end
 end
