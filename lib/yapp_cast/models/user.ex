@@ -14,17 +14,8 @@ defmodule YappCast.Models.User do
   validates :password, presence: true
 
   defimpl Canada.Can, for: YappCast.Models.User do
-    def can?(user, action, the_user = %YappCast.Models.User{id: id}) when action in [:get, :post, :put, :delete] do
+    def can?(user, action, the_user = %YappCast.Models.User{id: id}) when action in [:read, :create, :update, :delete] do
       user.id == the_user.id
-    end
-
-    def can?(user, :get, company = %YappCast.Models.Company{}) do
-      true
-    end
-
-    def can?(user, _, company = %YappCast.Models.Company{}) do
-      user.id == company.user_id
-    end
-    
+    end    
   end
 end

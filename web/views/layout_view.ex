@@ -1,4 +1,4 @@
 defmodule YappCast.LayoutView do
-  use YappCast.Views
+  use YappCast.View
 
 end

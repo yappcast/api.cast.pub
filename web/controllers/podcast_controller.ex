@@ -11,16 +11,12 @@ defmodule YappCast.PodcastController do
     render conn, "index"
   end
 
-  def new(conn, _params) do
-    send_response(conn, 404, "application/json","")
+  def rss(conn, _params) do
+    render conn, "index"
   end
 
   def create(conn, _params) do
     render conn, "index"
-  end
-
-  def edit(conn, _params) do
-    send_response(conn, 404, "application/json","")
   end
 
   def update(conn, _params) do
@@ -28,14 +24,6 @@ defmodule YappCast.PodcastController do
   end
 
   def destroy(conn, _params) do
-    send_response(conn, 404, "application/json","")
-  end
-
-  def not_found(conn, _params) do
-    render conn, "not_found"
-  end
-
-  def error(conn, _params) do
-    render conn, "error"
+    render conn, "index"
   end
 end

@@ -1,18 +1,44 @@
 defmodule YappCast.UserController do
   use Phoenix.Controller
+  alias YappCast.Queries.Users
+  alias YappCast.Models.User
 
   plug :action
 
-  def create(conn, _params) do
-    render conn, "index"
+  def show(conn, params) do
+    user = Users.get(conn.claims.user_id)
+    json conn, 200, YappCast.Serialize.public(user)      
   end
 
-  def update(conn, _params) do
-    render conn, "index"
+  def create(conn, params) do
+
+    case Users.create(%User{email: Dict.get(params, "email"), password: Dict.get(params, "password")}) do
+      {:error, errors} ->
+        json conn, 400, YappCast.Serialize.public(errors)
+      {:ok, user} ->
+        json conn, 200, YappCast.Serialize.public(user)      
+    end
+
+  end
+
+  def update(conn, params) do
+
+    case Users.update(conn.claims.user_id, Dict.get(params, "email"), Dict.get(params, "password")) do
+      {:error, errors} ->
+        json conn, 400, YappCast.Serialize.public(errors)
+      {:ok, _} ->
+        json conn, 204, ""     
+    end
+
   end
 
   def destroy(conn, _params) do
-    send_response(conn, 404, "application/json","")
+    case Users.delete(conn.claims.user_id) do
+      :ok ->
+        json conn, 204, "" 
+      {:ok, _} ->
+        json conn, 400, "" 
+    end
   end
   
 end
