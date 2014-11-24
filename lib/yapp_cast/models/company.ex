@@ -3,13 +3,14 @@ defmodule YappCast.Models.Company do
   use Vex.Struct
 
   schema "companies" do
-    field :name, :string
+    field :title, :string
     field :slug, :string
-    belongs_to :owner, YappCast.Models.User
+    belongs_to :user, YappCast.Models.User
     has_many :podcasts, YappCast.Models.Podcast
-    has_many :user_company_permissions, YappCast.Models.UserCompanyPermission
+    has_many :permission_groups, YappCast.Models.CompanyPermissionGroup
   end
 
-  validates :name, presence: true, length: [max: 255]
+  validates :title, presence: true, length: [max: 255]
   validates :slug, presence: true, length: [max: 255]
+  validates :user_id, presence: true
 end

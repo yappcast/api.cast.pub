@@ -26,7 +26,7 @@ defmodule YappCast.Queries.Users do
     end
   end
 
-  def update(id, email, password) do
+  def update(id, email, password, name) do
     case get(id) do
       nil ->
         {:error, [{:error, :user, :user, "user not found"}]}
@@ -37,6 +37,10 @@ defmodule YappCast.Queries.Users do
 
         if password do
           updating_user = %{updating_user | password: password }
+        end
+
+        if name do
+          updating_user = %{updating_user | name: name }
         end
 
         case Vex.errors(updating_user) do

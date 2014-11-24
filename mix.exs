@@ -42,7 +42,8 @@ defmodule YappCast.Mixfile do
       {:plug_cors, "~> 0.3.1"},
       {:bcrypt, github: "opscode/erlang-bcrypt"},
       {:timex, "~> 0.13.1"},
-      {:exrm, "~> 0.14.12"}
+      {:exrm, "~> 0.14.12"},
+      {:shouldi, only: :test}
    ]
   end
 end

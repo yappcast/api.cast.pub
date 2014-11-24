@@ -27,7 +27,7 @@ defmodule YappCast.Router do
   scope "/api" do
     pipe_through :api
 
-    get  "/users/current", YappCast.UserController, :current
+    get  "/users/current", YappCast.UserController, :show
     patch  "/users/current", YappCast.UserController, :update
     delete "/users/current", YappCast.UserController, :destroy
 

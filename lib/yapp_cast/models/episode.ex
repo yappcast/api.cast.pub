@@ -3,14 +3,22 @@ defmodule YappCast.Models.Episode do
   use Vex.Struct
 
   schema "episodes" do
-    field :name, :string
+    field :title, :string
+    field :publish_date, :datetime
+    field :author, :string
+    field :block, :boolean, default: false
+    field :image_url, :string
+    field :duration, :string
+    field :explicit, :boolean, default: false
+    field :is_closed_captioned, :boolean, default: false
+    field :order, :integer
+    field :subtitle, :string
+    field :summary, :string
     field :slug, :string
-    field :cover_url, :string
     field :media_url, :string
-    field :published, :boolean
     belongs_to :podcast, YappCast.Models.Podcast
   end
 
-  validates :name, presence: true, length: [max: 255]
+  validates :title, presence: true, length: [max: 255]
   validates :slug, presence: true, length: [max: 255]
 end
