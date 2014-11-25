@@ -19,8 +19,8 @@ defmodule YappCast.Models.Podcast do
     field :slug, :string
     belongs_to :company, YappCast.Models.Company
     has_many :episodes, YappCast.Models.Episode
-    has_many :categories, YappCast.Models.PodcastCategory
-    has_many :permission_groups, YappCast.Models.PodcastPermissionGroup
+    has_many :categories, YappCast.Models.Podcast.Category
+    has_many :permission_groups, YappCast.Models.Podcast.PermissionGroup
   end
 
   validates :title, presence: true, length: [max: 255]
