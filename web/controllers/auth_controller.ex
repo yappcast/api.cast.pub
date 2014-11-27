@@ -6,9 +6,10 @@ defmodule YappCast.AuthController do
   def create(conn, params) do
     case generate_token(params["email"], params["password"]) do
       {:ok, jwt} ->
-        json conn, 200, YappCast.Serialize.public(%{ token: jwt })
+        YappCast.Controllers.send_json(conn, %{ token: jwt })
       {:error, _} ->
-        json conn, 401, YappCast.Serialize.public(%{ status_code: 401, error: "Unable to authenticate", "description": "Invalid Username or Password" })
+        error = %{ status_code: 401, error: "Unable to authenticate", "description": "Invalid Username or Password" }
+        YappCast.Controllers.send_json(conn, error, 401)
     end
   end
 

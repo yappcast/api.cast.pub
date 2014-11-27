@@ -23,6 +23,26 @@ defmodule YappCast.Queries.Podcasts do
     Repo.all(query)
   end
 
+  def build_podcast_from_params(params, user) do
+    %Podcast{
+      title: Dict.get(params, "title"),
+      link: Dict.get(params, "link"),
+      copyright: Dict.get(params, "copyright"),
+      author: Dict.get(params, "author"),
+      block: Dict.get(params, "block", false),
+      image_url: Dict.get(params, "image_url"),
+      explicit: Dict.get(params, "explicit", false),
+      complete: Dict.get(params, "complete", false),
+      new_feed_url: Dict.get(params, "new_feed_url"),
+      owner: Dict.get(params, "owner", user.name),
+      owner_email: Dict.get(params, "owner_email", user.email),
+      subtitle: Dict.get(params, "subtitle"),
+      summary: Dict.get(params, "summary"),
+      slug: Dict.get(params, "slug"),
+      company_id: Dict.get(params, "company_id")
+    }
+  end
+
   def create(podcast) do
     YappCast.Queries.create(podcast)
   end

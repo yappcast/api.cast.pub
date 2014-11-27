@@ -19,6 +19,4 @@ defmodule YappCast.Queries.Podcasts.Categories do
     Repo.get(Category, id)
     |> Repo.delete
   end
-
-
 end

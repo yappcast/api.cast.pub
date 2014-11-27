@@ -108,10 +108,12 @@ defmodule YappCast.Repo.Migrations.Init do
 
       "CREATE INDEX podcasts_title_idx ON podcasts ((lower(title)))",
       "CREATE INDEX podcasts_slug_idx ON podcasts ((lower(slug)))",
+      "CREATE UNIQUE INDEX podcasts_company_id_slug_idx ON podcasts (company_id, (lower(slug)))",
       "CREATE INDEX podcasts_company_id_idx ON podcasts (company_id)",
 
       "CREATE INDEX episodes_title_idx ON episodes ((lower(title)))",
       "CREATE INDEX episodes_slug_idx ON episodes ((lower(slug)))",
+      "CREATE UNIQUE INDEX episodes_podcast_id_slug_idx ON episodes (podcast_id, (lower(slug)))",
       "CREATE INDEX episodes_podcast_idx ON episodes (podcast_id)",
 
       "CREATE INDEX cpg_company_id_idx ON company_permission_groups (company_id)",
@@ -138,10 +140,12 @@ defmodule YappCast.Repo.Migrations.Init do
       "DROP INDEX IF EXISTS podcasts_title_idx",
       "DROP INDEX IF EXISTS podcasts_slug_idx",
       "DROP INDEX IF EXISTS podcasts_company_id_idx",
+      "DROP INDEX IF EXISTS podcasts_company_id_slug_idx",
 
       "DROP INDEX IF EXISTS episodes_title_idx",
       "DROP INDEX IF EXISTS episodes_slug_idx",
       "DROP INDEX IF EXISTS episodes_podcast_idx",
+      "DROP INDEX IF EXISTS episodes_podcast_id_slug_idx",
 
       "DROP INDEX IF EXISTS cpg_company_id_idx",
       "DROP INDEX IF EXISTS cpgm_group_id_idx",

@@ -3,10 +3,6 @@ defmodule YappCast.EpisodeController do
 
   plug :action
 
-  def index(conn, _params) do
-    render conn, "index"
-  end
-
   def show(conn, _params) do
     render conn, "index"
   end

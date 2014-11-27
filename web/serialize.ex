@@ -9,8 +9,8 @@ defprotocol YappCast.Serialize do
 end
 
 defimpl YappCast.Serialize, for: Any do
-  def private(any), do: Poison.encode!(any)
-  def public(any), do: Poison.encode!(any)
+  def private(any), do: any
+  def public(any), do: any
 end
 
 defimpl YappCast.Serialize, for: List do
@@ -23,19 +23,26 @@ defimpl YappCast.Serialize, for: List do
   end
 
   defp serialize(list, func) do
-    list_str = Enum.map(list, fn(x) -> func.(x) end) 
-    |> Enum.join(",")
-
-    "[#{list_str}]"
+    Enum.map(list, fn(x) -> func.(x) end)
   end
 end
 
 defimpl YappCast.Serialize, for: YappCast.Models.User do
-  def private(user), do: Poison.encode!(%{id: user.id, email: user.email, name: user.name})
-  def public(user), do: Poison.encode!(%{id: user.id, email: user.email, name: user.name})
+  def private(user), do: Map.take(user, [:id, :email, :name])
+  def public(user), do: Map.take(user, [:id, :email, :name])
 end
 
 defimpl YappCast.Serialize, for: YappCast.Models.Company do
-  def private(company), do: Poison.encode!(%{id: company.id, title: company.title, slug: company.slug})
-  def public(company), do: Poison.encode!(%{id: company.id, title: company.title, slug: company.slug})
+  def private(company), do: Map.take(company, [:id, :title, :slug])
+  def public(company), do: Map.take(company, [:id, :title, :slug])
+end
+
+defimpl YappCast.Serialize, for: YappCast.Models.Podcast do
+  def private(podcast), do: Map.take(podcast, [
+    :id, :title, :link, :copyright, :author, :block, :image_url, 
+    :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary, :slug])
+  
+  def public(podcast), do: Map.take(podcast, [
+    :id, :title, :link, :copyright, :author, :block, :image_url, 
+    :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary, :slug])
 end

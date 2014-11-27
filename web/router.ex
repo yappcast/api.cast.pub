@@ -14,11 +14,18 @@ defmodule YappCast.Router do
   pipeline :api do
     plug :accepts, ~w(json)
     plug PlugJwt, secret: Application.get_env(:yapp_cast, :key)
+    plug :get_user
+  end
+
+  defp get_user(conn, _value) do
+    assign conn, :user, YappCast.Queries.Users.get(conn.assigns.claims.user_id)
   end
 
   scope "/" do
     pipe_through :browser
     get "/", YappCast.PageController, :index, as: :pages
+    get "/:company_slug/:podcast_slug/rss", YappCast.PodcastController, :rss
+    get "/:company_slug/:podcast_slug/:episode_slug/:file_name", YappCast.EpisodeController, :download
   end
 
   post  "/api/auth",  YappCast.AuthController, :create
@@ -26,6 +33,8 @@ defmodule YappCast.Router do
 
   scope "/api" do
     pipe_through :api
+
+    #TODO: Probably just make everything use ids instead of slugs
 
     get  "/users/current", YappCast.UserController, :show
     patch  "/users/current", YappCast.UserController, :update
@@ -44,9 +53,7 @@ defmodule YappCast.Router do
     delete "/companies/:slug/permissions/:id", YappCast.CompanyPermissionController, :destroy
 
     post "/podcasts", YappCast.PodcastController, :create
-    get "/podcasts", YappCast.PodcastController, :index
     get "/podcasts/:slug", YappCast.PodcastController, :show
-    get "/podcasts/:slug/rss", YappCast.PodcastController, :rss
     patch "/podcasts/:slug", YappCast.PodcastController, :update
     delete "/podcasts/:slug", YappCast.PodcastController, :destroy
 
@@ -57,9 +64,7 @@ defmodule YappCast.Router do
     delete "/podcasts/:slug/permissions/:id", YappCast.PodcastPermssionController, :destroy
 
     post "/episodes", YappCast.EpisodeController, :create
-    get "/episodes", YappCast.EpisodeController, :index
     get "/episodes/:slug", YappCast.EpisodeController, :show
-    get "/episodes/:slug/:file_name", YappCast.EpisodeController, :download
     patch "/episodes/:slug", YappCast.EpisodeController, :update
     delete "/episodes/:slug", YappCast.EpisodeController, :destroy
 

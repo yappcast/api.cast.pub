@@ -13,7 +13,6 @@ defimpl Canada.Can, for: YappCast.Models.User do
   end
 
   def can?(user, action, episode = %YappCast.Models.Episode{}) when action in [:read, :create, :update, :delete] do
-
     podcast = YappCast.Queries.Podcasts.get(episode.podcast_id)
     company = YappCast.Queries.Companies.get(podcast.company_id)
     user.id == company.user_id
