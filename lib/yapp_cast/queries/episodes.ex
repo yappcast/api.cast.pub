@@ -7,20 +7,30 @@ defmodule YappCast.Queries.Episodes do
     Repo.get(Episode, id)
   end
 
-  def get_by_slug(slug) do
-    query = from u in Episode,
-          where: u.slug == ^slug,
-         select: u
-
-    Repo.one(query)
-  end
-
   def list(podcast_id) do
     query = from u in Episode,
           where: u.podcast_id == ^podcast_id,
          select: u
 
     Repo.all(query)
+  end
+
+  def build_episode_from_params(params) do
+    %Episode{
+      title: Dict.get(params, "title"),
+      publish_date: Dict.get(params, "publish_date"),
+      author: Dict.get(params, "author"),
+      block: Dict.get(params, "block", false),
+      image_url: Dict.get(params, "image_url"),
+      duration: Dict.get(params, "duration"),
+      explicit: Dict.get(params, "explicit", false),
+      is_closed_captioned: Dict.get(params, "is_closed_captioned", false),
+      order: Dict.get(params, "order"),
+      subtitle: Dict.get(params, "subtitle"),
+      summary: Dict.get(params, "summary"),
+      media_url: Dict.get(params, "media_url"),
+      podcast_id: Dict.get(params, "podcast_id")
+    }
   end
 
   def create(episode) do
@@ -38,7 +48,7 @@ defmodule YappCast.Queries.Episodes do
             :title, :publish_date, 
             :author, :block, :image_url, :duration, 
             :explicit, :is_closed_captioned, :order, 
-            :subtitle, :summary, :slug, :media_url
+            :subtitle, :summary, :media_url
           ])
         |> YappCast.Queries.update
     end

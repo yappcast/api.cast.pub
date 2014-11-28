@@ -14,11 +14,9 @@ defmodule YappCast.Models.Episode do
     field :order, :integer
     field :subtitle, :string
     field :summary, :string
-    field :slug, :string
     field :media_url, :string
     belongs_to :podcast, YappCast.Models.Podcast
   end
 
   validates :title, presence: true, length: [max: 255]
-  validates :slug, presence: true, length: [max: 255]
 end

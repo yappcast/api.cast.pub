@@ -7,14 +7,6 @@ defmodule YappCast.Queries.Podcasts do
     Repo.get(Podcast, id)
   end
 
-  def get_by_slug(slug) do
-    query = from u in Podcast,
-          where: u.slug == ^slug,
-         select: u
-
-    Repo.one(query)
-  end
-
   def list(company_id) do
     query = from u in Podcast,
           where: u.company_id == ^company_id,
@@ -38,8 +30,7 @@ defmodule YappCast.Queries.Podcasts do
       owner_email: Dict.get(params, "owner_email", user.email),
       subtitle: Dict.get(params, "subtitle"),
       summary: Dict.get(params, "summary"),
-      slug: Dict.get(params, "slug"),
-      company_id: Dict.get(params, "company_id")
+      user_id: Dict.get(params, "user_id")
     }
   end
 
@@ -58,8 +49,7 @@ defmodule YappCast.Queries.Podcasts do
             :title, :link, :copyright, 
             :author, :block, :image_url, 
             :explicit, :complete, :new_feed_url, 
-            :owner, :owner_email, :subtitle, :summary, 
-            :slug
+            :owner, :owner_email, :subtitle, :summary
           ])
         |> YappCast.Queries.update
     end

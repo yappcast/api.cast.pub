@@ -16,8 +16,7 @@ defmodule YappCast.Models.Podcast do
     field :owner_email, :string
     field :subtitle, :string
     field :summary, :string
-    field :slug, :string
-    belongs_to :company, YappCast.Models.Company
+    belongs_to :user, YappCast.Models.User
     has_many :episodes, YappCast.Models.Episode
     has_many :categories, YappCast.Models.Podcast.Category
     has_many :permission_groups, YappCast.Models.Podcast.PermissionGroup
@@ -26,7 +25,6 @@ defmodule YappCast.Models.Podcast do
   validates :title, presence: true, length: [max: 255]
   validates :owner, presence: true, length: [max: 255]
   validates :owner_email, presence: true, length: [max: 255]
-  validates :slug, presence: true, length: [max: 255]
   validates :link, length: [max: 255]
   validates :copyright, length: [max: 255]
   validates :author, length: [max: 255]

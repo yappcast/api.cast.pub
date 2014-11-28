@@ -1,4 +1,4 @@
-defmodule PodcastControllerTest do
+defmodule EpisodeControllerTest do
   use ExUnit.Case
   use ConnHelper
   alias YappCast.Repo
@@ -18,58 +18,59 @@ defmodule PodcastControllerTest do
     conn = call(YappCast.Router, :post, "/api/auth", [email: "three@four.com", password: "two"])
     body = Poison.decode!(conn.resp_body, keys: :atoms!)
 
+    conn = call(YappCast.Router, :post, "/api/podcasts", 
+      [
+        title: "Podcast One", 
+        user_id: user.id, 
+        owner: "three",
+        owner_email: "three@three.com"
+      ], headers: [{ "authorization", "Bearer #{body.token}" }])
+    podcast = Poison.decode!(conn.resp_body, keys: :atoms!)
+
 
     context = Dict.put(context,:token, body.token) 
-    |> Dict.put(:user_id, user.id) 
-    |> Dict.put(:owner, "three") 
-    |> Dict.put(:owner_email, "three@four.com")
+    |> Dict.put(:podcast_id, podcast.id) 
 
     { :ok, context }
   end
 
-  test "create a podcast", context do
-    conn = call(YappCast.Router, :post, "/api/podcasts", 
+  test "create an episode", context do
+    conn = call(YappCast.Router, :post, "/api/episodes", 
       [
-        title: "Podcast One", 
-        user_id: context[:user_id], 
-        owner: context[:owner],
-        owner_email: context[:owner_email]
+        title: "Episode One", 
+        podcast_id: context[:podcast_id]
       ], headers: [{ "authorization", "Bearer #{context[:token]}" }])
     assert conn.status == 200
     body = Poison.decode!(conn.resp_body, keys: :atoms!)
     assert Map.has_key?(body, :id)
   end
 
-  test "update a podcast", context do
-    conn = call(YappCast.Router, :post, "/api/podcasts", 
+  test "update an episode", context do
+    conn = call(YappCast.Router, :post, "/api/episodes", 
       [
-        title: "Podcast One", 
-        user_id: context[:user_id], 
-        owner: context[:owner],
-        owner_email: context[:owner_email]
+        title: "Episode One", 
+        podcast_id: context[:podcast_id]
       ], headers: [{ "authorization", "Bearer #{context[:token]}" }])
 
     body = Poison.decode!(conn.resp_body, keys: :atoms!)
-    conn = call(YappCast.Router, :patch, "/api/podcasts/#{body.id}", [title: "podcast1"], headers: [{ "authorization", "Bearer #{context[:token]}" }])
+    conn = call(YappCast.Router, :patch, "/api/episodes/#{body.id}", [title: "episode1"], headers: [{ "authorization", "Bearer #{context[:token]}" }])
     assert conn.status == 204
 
-    conn = call(YappCast.Router, :get, "/api/podcasts/#{body.id}", nil, headers: [{ "authorization", "Bearer #{context[:token]}" }])
+    conn = call(YappCast.Router, :get, "/api/episodes/#{body.id}", nil, headers: [{ "authorization", "Bearer #{context[:token]}" }])
     assert conn.status == 200
     body = Poison.decode!(conn.resp_body, keys: :atoms!)
-    assert body.title == "podcast1"
+    assert body.title == "episode1"
   end
 
-  test "delete a podcast", context do
-    conn = call(YappCast.Router, :post, "/api/podcasts", 
+  test "delete an episode", context do
+    conn = call(YappCast.Router, :post, "/api/episodes", 
       [
-        title: "Podcast One", 
-        user_id: context[:user_id], 
-        owner: context[:owner],
-        owner_email: context[:owner_email]
+        title: "Episode One", 
+        podcast_id: context[:podcast_id]
       ], headers: [{ "authorization", "Bearer #{context[:token]}" }])
 
     body = Poison.decode!(conn.resp_body, keys: :atoms!)
-    conn = call(YappCast.Router, :delete, "/api/podcasts/#{body.id}", nil, headers: [{ "authorization", "Bearer #{context[:token]}" }])
+    conn = call(YappCast.Router, :delete, "/api/episodes/#{body.id}", nil, headers: [{ "authorization", "Bearer #{context[:token]}" }])
     assert conn.status == 204
   end
 end

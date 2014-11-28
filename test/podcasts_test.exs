@@ -2,10 +2,8 @@ defmodule PodcastsTest do
   use ExUnit.Case
   alias YappCast.Repo
   alias YappCast.Models.User
-  alias YappCast.Models.Company
   alias YappCast.Models.Podcast
   alias YappCast.Queries.Users
-  alias YappCast.Queries.Companies
   alias YappCast.Queries.Podcasts
 
   setup context do
@@ -18,26 +16,22 @@ defmodule PodcastsTest do
     user = %User{ email: "three@four.com", password: "two", name: "name" }
     {:ok, saved_user } = Users.create(user)
 
-    company = %Company{ title: "two", slug: "two", user_id: saved_user.id }
-    {:ok, saved_company } = Companies.create(company)
-
-    { :ok, Dict.put(context, :company, saved_company) |> Dict.put(:user, saved_user) }
+    { :ok, Dict.put(context, :user, saved_user) }
   end
 
   test "create podcast when all required fields are present", context do
-    podcast = %Podcast{ title: "two", slug: "two", 
-    company_id: context[:company].id, 
+    podcast = %Podcast{ title: "two", 
+    user_id: context[:user].id, 
     owner: context[:user].name, 
     owner_email: context[:user].email }
 
     {:ok, saved_podcast } = Podcasts.create(podcast)
     assert podcast.title == saved_podcast.title
-    assert podcast.slug == saved_podcast.slug
   end
 
-  test "update company when update fields are valid", context  do
-    podcast = %Podcast{ title: "two", slug: "two", 
-    company_id: context[:company].id, 
+  test "update podcast when update fields are valid", context  do
+    podcast = %Podcast{ title: "two",
+    user_id: context[:user].id, 
     owner: context[:user].name, 
     owner_email: context[:user].email }
     {:ok, saved_podcast } = Podcasts.create(podcast)
@@ -53,8 +47,8 @@ defmodule PodcastsTest do
     user_two = %User{ password: "two", email: "four@four.com", name: "name2" }
     {:ok, user_two } = Users.create(user_two)
 
-    podcast = %Podcast{ title: "two", slug: "two", 
-    company_id: context[:company].id, 
+    podcast = %Podcast{ title: "two", 
+    user_id: context[:user].id, 
     owner: context[:user].name, 
     owner_email: context[:user].email }
     {:ok, saved_podcast } = Podcasts.create(podcast)

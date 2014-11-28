@@ -24,8 +24,8 @@ defmodule YappCast.Router do
   scope "/" do
     pipe_through :browser
     get "/", YappCast.PageController, :index, as: :pages
-    get "/:company_slug/:podcast_slug/rss", YappCast.PodcastController, :rss
-    get "/:company_slug/:podcast_slug/:episode_slug/:file_name", YappCast.EpisodeController, :download
+    get "/podcasts/:podcast_id/rss", YappCast.PodcastController, :rss
+    get "/podcasts/:podcast_id/:episode_id/:file_name", YappCast.EpisodeController, :download
   end
 
   post  "/api/auth",  YappCast.AuthController, :create
@@ -40,33 +40,21 @@ defmodule YappCast.Router do
     patch  "/users/current", YappCast.UserController, :update
     delete "/users/current", YappCast.UserController, :destroy
 
-    post "/companies", YappCast.CompanyController, :create
-    get "/companies", YappCast.CompanyController, :index
-    get "/companies/:slug", YappCast.CompanyController, :show
-    patch "/companies/:slug", YappCast.CompanyController, :update
-    delete "/companies/:slug", YappCast.CompanyController, :destroy
-
-    post "/companies/:slug/permissions", YappCast.CompanyPermissionController, :create
-    get "/companies/:slug/permissions", YappCast.CompanyPermissionController, :index
-    get "/companies/:slug/permissions/:id", YappCast.CompanyPermissionController, :show
-    patch "/companies/:slug/permissions/:id", YappCast.CompanyPermissionController, :update
-    delete "/companies/:slug/permissions/:id", YappCast.CompanyPermissionController, :destroy
-
     post "/podcasts", YappCast.PodcastController, :create
-    get "/podcasts/:slug", YappCast.PodcastController, :show
-    patch "/podcasts/:slug", YappCast.PodcastController, :update
-    delete "/podcasts/:slug", YappCast.PodcastController, :destroy
+    get "/podcasts/:id", YappCast.PodcastController, :show
+    patch "/podcasts/:id", YappCast.PodcastController, :update
+    delete "/podcasts/:id", YappCast.PodcastController, :destroy
 
-    post "/podcasts/:slug/permissions", YappCast.PodcastPermssionController, :create
-    get "/podcasts/:slug/permissions", YappCast.PodcastPermssionController, :index
-    get "/podcasts/:slug/permissions/:id", YappCast.PodcastPermssionController, :show
-    patch "/podcasts/:slug/permissions/:id", YappCast.PodcastPermssionController, :update
-    delete "/podcasts/:slug/permissions/:id", YappCast.PodcastPermssionController, :destroy
+    post "/podcasts/:id/permissions", YappCast.PodcastPermssionController, :create
+    get "/podcasts/:id/permissions", YappCast.PodcastPermssionController, :index
+    get "/podcasts/:id/permissions/:permission_id", YappCast.PodcastPermssionController, :show
+    patch "/podcasts/:id/permissions/:permission_id", YappCast.PodcastPermssionController, :update
+    delete "/podcasts/:id/permissions/:permission_id", YappCast.PodcastPermssionController, :destroy
 
     post "/episodes", YappCast.EpisodeController, :create
-    get "/episodes/:slug", YappCast.EpisodeController, :show
-    patch "/episodes/:slug", YappCast.EpisodeController, :update
-    delete "/episodes/:slug", YappCast.EpisodeController, :destroy
+    get "/episodes/:id", YappCast.EpisodeController, :show
+    patch "/episodes/:id", YappCast.EpisodeController, :update
+    delete "/episodes/:id", YappCast.EpisodeController, :destroy
 
   end
 end

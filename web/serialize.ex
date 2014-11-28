@@ -32,17 +32,25 @@ defimpl YappCast.Serialize, for: YappCast.Models.User do
   def public(user), do: Map.take(user, [:id, :email, :name])
 end
 
-defimpl YappCast.Serialize, for: YappCast.Models.Company do
-  def private(company), do: Map.take(company, [:id, :title, :slug])
-  def public(company), do: Map.take(company, [:id, :title, :slug])
-end
 
 defimpl YappCast.Serialize, for: YappCast.Models.Podcast do
   def private(podcast), do: Map.take(podcast, [
     :id, :title, :link, :copyright, :author, :block, :image_url, 
-    :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary, :slug])
+    :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary])
   
   def public(podcast), do: Map.take(podcast, [
     :id, :title, :link, :copyright, :author, :block, :image_url, 
-    :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary, :slug])
+    :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary])
+end
+
+defimpl YappCast.Serialize, for: YappCast.Models.Episode do
+  def private(episode), do: Map.take(episode, [:id, :title, :publish_date, 
+            :author, :block, :image_url, :duration, 
+            :explicit, :is_closed_captioned, :order, 
+            :subtitle, :summary, :media_url])
+  
+  def public(episode), do: Map.take(episode, [:id, :title, :publish_date, 
+            :author, :block, :image_url, :duration, 
+            :explicit, :is_closed_captioned, :order, 
+            :subtitle, :summary, :media_url])
 end

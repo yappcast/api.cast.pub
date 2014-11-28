@@ -1,13 +1,13 @@
 defmodule YappCast.PodcastController do
   use Phoenix.Controller
   alias YappCast.Queries.Podcasts
-  alias YappCast.Models.Podcast
-  alias YappCast.Queries.Users
 
   plug :action
 
   def show(conn, params) do
-    podcast = Podcasts.get_by_slug(params["slug"])
+    podcast = params["id"]
+    |> String.to_integer
+    |> Podcasts.get
 
     case Canada.Can.can?(conn.assigns.user, :read, podcast) do
       true ->
@@ -15,10 +15,6 @@ defmodule YappCast.PodcastController do
       false ->
         YappCast.Controllers.send_no_content(conn, 401)        
     end
-  end
-
-  def rss(conn, _params) do
-    render conn, "index"
   end
 
   def create(conn, params) do
@@ -29,8 +25,8 @@ defmodule YappCast.PodcastController do
         case Podcasts.create(podcast) do
           {:error, errors} ->
             YappCast.Controllers.send_json(conn, errors, 400)
-          {:ok, company} ->
-            YappCast.Controllers.send_json(conn, company)    
+          {:ok, podcast} ->
+            YappCast.Controllers.send_json(conn, podcast)    
         end
       false ->
         YappCast.Controllers.send_no_content(conn, 401)             
@@ -38,7 +34,10 @@ defmodule YappCast.PodcastController do
   end
 
   def update(conn, params) do
-    podcast = Podcasts.get_by_slug(params["slug"])
+    podcast = params["id"]
+    |> String.to_integer
+    |> Podcasts.get
+
 
     case Canada.Can.can?(conn.assigns.user, :update, podcast) do
       true ->
@@ -54,7 +53,10 @@ defmodule YappCast.PodcastController do
   end
 
   def destroy(conn, params) do
-    podcast = Podcasts.get_by_slug(params["slug"])
+    podcast = params["id"]
+    |> String.to_integer
+    |> Podcasts.get
+
 
     case Canada.Can.can?(conn.assigns.user, :delete, podcast) do
       true ->
