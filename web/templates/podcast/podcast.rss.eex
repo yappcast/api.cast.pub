@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title><%= @podcast.title %></title>
+
+    <%= if @podcast.subtitle do %>
+      <itunes:subtitle><%= @podcast.subtitle %></itunes:subtitle>
+    <% end %>
+    
+    <itunes:author><%= @podcast.author %></itunes:author>
+    <itunes:owner>
+        <itunes:name><%= @podcast.owner %></itunes:name>
+        <itunes:email><%= @podcast.owner_email %></itunes:email>
+    </itunes:owner>
+
+    <%= if @podcast.summary do %>
+      <description>
+          <![CDATA[<%= @podcast.summary %>]]>
+      </description>
+      <itunes:summary>
+          <![CDATA[<%= @podcast.summary %>]]>
+      </itunes:summary>
+    <% end %>
+    
+    <%= if @podcast.link do %>
+      <link><%= @podcast.link %></link>
+    <% end %>
+
+    <%= if @podcast.copyright do %>
+      <copyright><%= @podcast.copyright %></copyright>
+    <% end %>
+
+    <%= if @podcast.explicit do %>
+      <itunes:explicit>yes</itunes:explicit>
+    <% end %>
+
+    <%= if @podcast.complete do %>
+      <itunes:complete>yes</itunes:complete>
+    <% end %>
+
+    <%= if @podcast.block do %>
+      <itunes:block>yes</itunes:block>
+    <% end %>
+
+    <%= if @podcast.new_feed_url do %>
+      <itunes:new-feed-url><%= @podcast.new_feed_url %></itunes:new-feed-url>
+    <% end %>
+
+    <%= if @podcast.image_url do %>
+      <itunes:image href="<%= @podcast.image_url %>"/>
+    <% end %>
+
+    <%= for category <- @podcast.categories.all || [] do %>
+      <itunes:category text="<%= @category %>"/>      
+    <% end %>
+
+    <%= for episode <- @podcast.episodes.all || [] do %>
+      <%= if !@episode.block do %>
+        <item>
+            <title><%= @episode.title %></title>
+
+            <%= if @episode.publish_date do %>
+              <pubDate><%= encode_date(@episode.publish_date) %></pubDate>
+            <% end %>
+
+            <%= if @episode.media_url do %>
+              <link><%= get_episode_url(@episode.podcast_id, @episode.id, @episode.file_name) %></link>
+            <% end %>
+
+            <%= if @episode.author do %>
+              <itunes:author><%= @episode.author %></itunes:author>
+            <% end %>
+
+            <%= if @episode.block do %>
+              <itunes:block>yes</itunes:block>
+            <% end %>
+
+            <%= if @episode.image_url do %>
+              <itunes:image href="<%= @episode.image_url %>"/>
+            <% end %>
+
+            <%= if @episode.duration do %>
+              <itunes:duration>yes</itunes:duration>
+            <% end %>
+
+            <%= if @episode.explicit do %>
+              <itunes:explicit>yes</itunes:explicit>
+            <% end %>
+
+            <%= if @episode.is_closed_captioned do %>
+              <itunes:isClosedCaptioned>yes</itunes:isClosedCaptioned>
+            <% end %>
+
+            <%= if @episode.order do %>
+              <itunes:order>"<%= @episode.order %>"</itunes:order>
+            <% end %>
+
+            <%= if @episode.summary do %>
+              <description>
+                  <![CDATA[<%= @episode.summary %>]]>
+              </description>
+              <itunes:summary>
+                  <![CDATA[<%= @episode.summary %>]]>
+              </itunes:summary>
+            <% end %>
+
+            <%= if @episode.subtitle do %>
+              <itunes:subtitle><%= @episode.subtitle %></itunes:subtitle>
+            <% end %>
+
+            <guid isPermaLink="false"><%= get_episode_guid(@episode.podcast_id, @episode.id) %></guid>
+
+            <%= if @episode.media_url do %>
+              <enclosure url="<%= get_episode_url(@episode.podcast_id, @episode.id, @episode.file_name) %>" length="@episode.media_length" type="media_mime_type"/>
+            <% end %>
+        </item> 
+      <% end %>    
+    <% end %>
+
+  </channel>
+</rss>

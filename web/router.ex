@@ -24,8 +24,8 @@ defmodule YappCast.Router do
   scope "/" do
     pipe_through :browser
     get "/", YappCast.PageController, :index, as: :pages
-    get "/podcasts/:podcast_id/rss", YappCast.PodcastController, :rss
-    get "/podcasts/:podcast_id/:episode_id/:file_name", YappCast.EpisodeController, :download
+    get "/podcasts/:id/rss", YappCast.PodcastController, :rss
+    get "/podcasts/:id/:episode_id/:file_name", YappCast.EpisodeController, :download
   end
 
   post  "/api/auth",  YappCast.AuthController, :create

@@ -15,6 +15,9 @@ defmodule YappCast.Models.Episode do
     field :subtitle, :string
     field :summary, :string
     field :media_url, :string
+    field :media_content_length, :integer
+    field :media_mime_type, :string
+    field :file_name, :string
     belongs_to :podcast, YappCast.Models.Podcast
   end
 

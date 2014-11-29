@@ -24,8 +24,10 @@ defmodule YappCast.PodcastController do
       true ->
         case Podcasts.create(podcast) do
           {:error, errors} ->
+            IO.puts("here")
             YappCast.Controllers.send_json(conn, errors, 400)
           {:ok, podcast} ->
+            IO.puts("here1")
             YappCast.Controllers.send_json(conn, podcast)    
         end
       false ->
@@ -64,6 +66,20 @@ defmodule YappCast.PodcastController do
         YappCast.Controllers.send_no_content(conn)    
       false ->
         YappCast.Controllers.send_no_content(conn, 401)            
+    end
+  end
+
+
+  def rss(conn, params) do
+    podcast = params["id"]
+    |> String.to_integer
+    |> Podcasts.get
+
+    case podcast do
+      nil ->
+        YappCast.Controllers.send_no_content(conn, 404)
+      _ ->
+       render conn, "podcast.rss", "rss", podcast: podcast    
     end
   end
 end

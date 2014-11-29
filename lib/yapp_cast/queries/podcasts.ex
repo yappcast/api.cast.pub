@@ -4,13 +4,20 @@ defmodule YappCast.Queries.Podcasts do
   alias YappCast.Repo
 
   def get(id) do
-    Repo.get(Podcast, id)
+    query = from u in Podcast,
+          where: u.id == ^id,
+          left_join: e in u.episodes,
+          left_join: c in u.categories,
+          select: assoc(u, [episodes: e, categories: c])
+
+    Repo.one(query)
   end
 
-  def list(company_id) do
+  def list(user_id) do
     query = from u in Podcast,
-          where: u.company_id == ^company_id,
-         select: u
+          where: u.user_id == ^user_id,
+         select: u,
+         preload: :episodes
 
     Repo.all(query)
   end
@@ -30,7 +37,7 @@ defmodule YappCast.Queries.Podcasts do
       owner_email: Dict.get(params, "owner_email", user.email),
       subtitle: Dict.get(params, "subtitle"),
       summary: Dict.get(params, "summary"),
-      user_id: Dict.get(params, "user_id")
+      user_id: user.id
     }
   end
 

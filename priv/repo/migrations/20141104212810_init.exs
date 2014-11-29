@@ -45,6 +45,9 @@ defmodule YappCast.Repo.Migrations.Init do
         subtitle varchar(255), 
         summary varchar, 
         media_url varchar(255),
+        media_content_length integer,
+        media_mime_type varchar(255),
+        file_name varchar(255),
         podcast_id int references podcasts(id) ON DELETE CASCADE
       )
       """,
@@ -60,6 +63,20 @@ defmodule YappCast.Repo.Migrations.Init do
         id serial PRIMARY KEY, 
         title varchar(255) NOT NULL, 
         category_id int references categories(id) ON DELETE CASCADE
+      )
+      """,
+      """
+      CREATE TABLE IF NOT EXISTS podcast_categories (
+        id serial PRIMARY KEY, 
+        podcast_id int references podcasts(id) ON DELETE CASCADE,
+        category_id int references categories(id) ON DELETE CASCADE
+      )
+      """,
+      """
+      CREATE TABLE IF NOT EXISTS podcast_sub_categories (
+        id serial PRIMARY KEY, 
+        podcast_category_id int references podcast_categories(id) ON DELETE CASCADE,
+        sub_category_id int references sub_categories(id) ON DELETE CASCADE
       )
       """,
       """
@@ -113,6 +130,8 @@ defmodule YappCast.Repo.Migrations.Init do
       "DROP TABLE IF EXISTS podcast_permission_group_members",
       "DROP TABLE IF EXISTS podcast_permission_groups",
       "DROP TABLE IF EXISTS episodes",
+      "DROP TABLE IF EXISTS podcast_sub_categories",
+      "DROP TABLE IF EXISTS podcast_categories",
       "DROP TABLE IF EXISTS sub_categories",
       "DROP TABLE IF EXISTS categories",
       "DROP TABLE IF EXISTS podcasts",

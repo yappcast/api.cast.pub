@@ -10,7 +10,9 @@ defmodule YappCast.Queries.Categories do
   end
 
   def list() do
-    query = from u in Category, select: u, preload: :sub_categories
+    query = from u in Category, 
+    left_join: sc in u.sub_categories,
+    select: assoc(u, [sub_categories: sc])
     Repo.all(query)
   end
 
@@ -109,7 +111,7 @@ defmodule YappCast.Queries.Categories do
           {:ok, saved_category } = Categories.create(%Category{ title: category.title })
 
           Enum.each(category.sub_categories, fn(sub_category) ->
-            {:ok, saved_sub_category } = Categories.create(%SubCategory{ title: sub_category, category_id: saved_category.id })
+            {:ok, _ } = SubCategories.create(%SubCategory{ title: sub_category, category_id: saved_category.id })
           end)
 
         end)
