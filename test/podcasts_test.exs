@@ -1,10 +1,10 @@
 defmodule PodcastsTest do
   use ExUnit.Case
-  alias YappCast.Repo
-  alias YappCast.Models.User
-  alias YappCast.Models.Podcast
-  alias YappCast.Queries.Users
-  alias YappCast.Queries.Podcasts
+  alias CastPub.Repo
+  alias CastPub.Models.User
+  alias CastPub.Models.Podcast
+  alias CastPub.Queries.Users
+  alias CastPub.Queries.Podcasts
 
   setup context do
     Ecto.Migrator.run(Repo, "priv/repo/migrations", :up, [all: true])

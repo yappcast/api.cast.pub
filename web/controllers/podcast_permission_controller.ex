@@ -1,4 +1,4 @@
-defmodule YappCast.PodcastPermssionController do
+defmodule CastPub.PodcastPermssionController do
   use Phoenix.Controller
 
   plug :action

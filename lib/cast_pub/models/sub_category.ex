@@ -1,10 +1,10 @@
-defmodule YappCast.Models.Category do
+defmodule CastPub.Models.SubCategory do
   use Ecto.Model
   use Vex.Struct
 
-  schema "categories" do
+  schema "sub_categories" do
     field :title, :string
-    has_many :sub_categories, YappCast.Models.SubCategory
+    belongs_to :category, CastPub.Models.Category
   end
 
   validates :title, presence: true, length: [max: 255]

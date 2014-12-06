@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.Yapp.Seed.Categories do
   use Mix.Task
-  alias YappCast.Queries.Categories
+  alias CastPub.Queries.Categories
 
   @shortdoc "Seeds the Categories"
 

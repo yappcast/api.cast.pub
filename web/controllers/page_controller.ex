@@ -1,4 +1,4 @@
-defmodule YappCast.PageController do
+defmodule CastPub.PageController do
   use Phoenix.Controller
 
   plug :action

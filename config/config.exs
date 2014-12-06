@@ -6,19 +6,19 @@
 use Mix.Config
 
 # Configures the router
-config :phoenix, YappCast.Router,
+config :phoenix, CastPub.Router,
   url: [host: "localhost"],
   http: [port: System.get_env("PORT")],
   https: false,
   secret_key_base: "i3j++7OMwkwxOCoO1w7hXteP5mKdHo6MHG84qG/v0mQiwKdigvY0jKzITCg//hjcvNZ7r+0vYBmC60imugip+w==",
   catch_errors: true,
   debug_errors: false,
-  error_controller: YappCast.PageController
+  error_controller: CastPub.PageController
 
 # Session configuration
-config :phoenix, YappCast.Router,
+config :phoenix, CastPub.Router,
   session: [store: :cookie,
-            key: "_yapp_cast_key"]
+            key: "_cast_pub_key"]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -26,7 +26,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :yapp_cast,
-  database_url: "ecto://postgres@localhost/yapp_cast_dev",
+  database_url: "ecto://postgres@localhost/cast_pub_dev",
   key: "secret",
   token_expires: 3000,
   password_work_factor: 4

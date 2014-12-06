@@ -1,17 +1,17 @@
-# YappCast
+# CastPub
 
 To start your new Phoenix application:
 
 1. Install dependencies with `mix deps.get`
-2. Create Database with `mix ecto.create YappCast.Repo`
-3. Run migrations with `mix ecto.migrate YappCast.Repo`
+2. Create Database with `mix ecto.create CastPub.Repo`
+3. Run migrations with `mix ecto.migrate CastPub.Repo`
 4. Start Phoenix router with `mix phoenix.start`
 
 Now you can visit `localhost:4000` from your browser.
 
 # Migrations
-TO create a migration, do: `mix ecto.gen.migration YappCast.Repo <migration_name>`
-To run migrations, do: `mix ecto.migrate YappCast.Repo`
+TO create a migration, do: `mix ecto.gen.migration CastPub.Repo <migration_name>`
+To run migrations, do: `mix ecto.migrate CastPub.Repo`
 
 do `mix help` to see all the commands that are available
 

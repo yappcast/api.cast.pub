@@ -1,8 +1,8 @@
 defmodule UsersTest do
   use ExUnit.Case
-  alias YappCast.Repo
-  alias YappCast.Models.User
-  alias YappCast.Queries.Users
+  alias CastPub.Repo
+  alias CastPub.Models.User
+  alias CastPub.Queries.Users
 
   setup _context do
     Ecto.Migrator.run(Repo, "priv/repo/migrations", :up, [all: true])
@@ -36,7 +36,7 @@ defmodule UsersTest do
     user = %User{ email: "three@four.com", password: "two", name: "name" }
     {:ok, saved_user } = Users.create(user)
     assert user.email == saved_user.email
-    assert YappCast.Auth.check_password(user.password, saved_user.password)
+    assert CastPub.Auth.check_password(user.password, saved_user.password)
   end 
 
   test "not update user when email is invalid", _context do
@@ -73,7 +73,7 @@ defmodule UsersTest do
     updated_user = Users.get(saved_user.id)
     assert updated_user.email == "update@email.com"
     assert updated_user.name == "newName"
-    assert YappCast.Auth.check_password("three", updated_user.password)
+    assert CastPub.Auth.check_password("three", updated_user.password)
   end
 
   test "not allow access to another user's data" do

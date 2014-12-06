@@ -1,7 +1,7 @@
-defmodule YappCast.Queries.Podcasts.SubCategories do
+defmodule CastPub.Queries.Podcasts.SubCategories do
   import Ecto.Query
-  alias YappCast.Models.Podcast.SubCategory
-  alias YappCast.Repo
+  alias CastPub.Models.Podcast.SubCategory
+  alias CastPub.Repo
 
   def list(podcast_category_id) do
     query = from u in SubCategory, 
@@ -11,7 +11,7 @@ defmodule YappCast.Queries.Podcasts.SubCategories do
   end
 
   def create(podcast_sub_category) do
-    YappCast.Queries.create(podcast_sub_category)
+    CastPub.Queries.create(podcast_sub_category)
   end
 
   def delete(id) do

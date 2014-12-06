@@ -1,14 +1,14 @@
-defmodule YappCast.PodcastView do
-  use YappCast.View
+defmodule CastPub.PodcastView do
+  use CastPub.View
 
   def get_episode_guid(podcast_id, episode_id) do
-    scheme_and_port = Phoenix.Router.Helpers.url(YappCast.Router)
+    scheme_and_port = Phoenix.Router.Helpers.url(CastPub.Router)
     "#{scheme_and_port}/#{podcast_id}/#{episode_id}"
   end
 
   def get_episode_url(podcast_id, episode_id, file_name) do
-    scheme_and_port = Phoenix.Router.Helpers.url(YappCast.Router)
-    path = YappCast.Router.Helpers.episode_path(:download, podcast_id, episode_id, file_name)
+    scheme_and_port = Phoenix.Router.Helpers.url(CastPub.Router)
+    path = CastPub.Router.Helpers.episode_path(:download, podcast_id, episode_id, file_name)
     "#{scheme_and_port}#{path}"
   end
 
@@ -68,7 +68,7 @@ defmodule YappCast.PodcastView do
     "<itunes:category text=\"#{escape_string(category.get.category.title)}\">#{subcategories}</itunes:category>"
   end
 
-  def output_episode_link(episode) do
+  def output_episode_link_and_enclosure(episode) do
     if episode.media_url do
       nil ->
         ""

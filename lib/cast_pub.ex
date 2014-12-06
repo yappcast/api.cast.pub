@@ -1,4 +1,4 @@
-defmodule YappCast do
+defmodule CastPub do
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
@@ -8,12 +8,12 @@ defmodule YappCast do
 
     children = [
       # Define workers and child supervisors to be supervised
-      worker(YappCast.Repo, [])
+      worker(CastPub.Repo, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: YappCast.Supervisor]
+    opts = [strategy: :one_for_one, name: CastPub.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end

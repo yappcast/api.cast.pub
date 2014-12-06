@@ -1,4 +1,4 @@
-defprotocol YappCast.Serialize do
+defprotocol CastPub.Serialize do
     @doc "For showing all data to owners and admins"
     @fallback_to_any true
     def private(resource)
@@ -8,18 +8,18 @@ defprotocol YappCast.Serialize do
     def public(resource)
 end
 
-defimpl YappCast.Serialize, for: Any do
+defimpl CastPub.Serialize, for: Any do
   def private(any), do: any
   def public(any), do: any
 end
 
-defimpl YappCast.Serialize, for: List do
+defimpl CastPub.Serialize, for: List do
   def private(list) do 
-    serialize(list, &YappCast.Serialize.private/1)
+    serialize(list, &CastPub.Serialize.private/1)
   end
 
   def public(list) do 
-    serialize(list, &YappCast.Serialize.public/1)
+    serialize(list, &CastPub.Serialize.public/1)
   end
 
   defp serialize(list, func) do
@@ -27,13 +27,13 @@ defimpl YappCast.Serialize, for: List do
   end
 end
 
-defimpl YappCast.Serialize, for: YappCast.Models.User do
+defimpl CastPub.Serialize, for: CastPub.Models.User do
   def private(user), do: Map.take(user, [:id, :email, :name])
   def public(user), do: Map.take(user, [:id, :email, :name])
 end
 
 
-defimpl YappCast.Serialize, for: YappCast.Models.Podcast do
+defimpl CastPub.Serialize, for: CastPub.Models.Podcast do
   def private(podcast), do: Map.take(podcast, [
     :id, :title, :link, :copyright, :author, :block, :image_url, 
     :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary])
@@ -43,7 +43,7 @@ defimpl YappCast.Serialize, for: YappCast.Models.Podcast do
     :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary])
 end
 
-defimpl YappCast.Serialize, for: YappCast.Models.Episode do
+defimpl CastPub.Serialize, for: CastPub.Models.Episode do
   def private(episode), do: Map.take(episode, [:id, :title, :publish_date, 
             :author, :block, :image_url, :duration, 
             :explicit, :is_closed_captioned, :order, 

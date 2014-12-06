@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :phoenix, YappCast.Router,
+config :phoenix, CastPub.Router,
   http: [port: System.get_env("PORT") || 4000],
   debug_errors: true
 
@@ -8,4 +8,4 @@ config :phoenix, YappCast.Router,
 config :phoenix, :code_reloader, true
 
 config :yapp_cast,
-  database_url: "ecto://postgres@localhost/yapp_cast_dev"
+  database_url: "ecto://postgres@localhost/cast_pub_dev"

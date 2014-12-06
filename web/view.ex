@@ -1,4 +1,4 @@
-defmodule YappCast.View do
+defmodule CastPub.View do
   use Phoenix.View, root: "web/templates"
 
   # The quoted expression returned by this block is applied
@@ -6,8 +6,8 @@ defmodule YappCast.View do
   using do
     quote do
       # Import common functionality
-      import YappCast.I18n
-      import YappCast.Router.Helpers
+      import CastPub.I18n
+      import CastPub.Router.Helpers
 
       # Use Phoenix.HTML to import all HTML functions (forms, tags, etc)
       use Phoenix.HTML

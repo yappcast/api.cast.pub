@@ -37,7 +37,7 @@
             <%= output_tag(episode.summary, "description", :cdata) %>
             <%= output_tag(episode.summary, "itunes:summary", :cdata) %>
             <%= output_tag(episode.subtitle, "itunes:subtitle") %>
-            <%= output_episode_link(episode) %>
+            <%= output_episode_link_and_enclosure(episode) %>
             <%= output_guid(episode) %>
         </item> 
       <% end %>    

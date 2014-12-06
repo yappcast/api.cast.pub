@@ -1,9 +1,9 @@
-defmodule YappCast.Controllers do
+defmodule CastPub.Controllers do
   use Phoenix.Controller
   
   def send_json(conn, body, status \\ 200) do
     conn
-    |> json(YappCast.Serialize.public(body))
+    |> json(CastPub.Serialize.public(body))
     |> put_status(status)
   end
 

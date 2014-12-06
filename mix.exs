@@ -1,4 +1,4 @@
-defmodule YappCast.Mixfile do
+defmodule CastPub.Mixfile do
   use Mix.Project
 
   def project do
@@ -15,7 +15,7 @@ defmodule YappCast.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [
-      mod: {YappCast, []},
+      mod: {CastPub, []},
       applications: [
         :phoenix, :cowboy, :logger, :postgrex, :ecto, 
         :vex, :canada, :poison, :cmark, :joken, 

@@ -1,7 +1,7 @@
-defmodule YappCast.Queries.Episodes do
+defmodule CastPub.Queries.Episodes do
   import Ecto.Query
-  alias YappCast.Models.Episode
-  alias YappCast.Repo
+  alias CastPub.Models.Episode
+  alias CastPub.Repo
 
   def get(id) do
     Repo.get(Episode, id)
@@ -34,7 +34,7 @@ defmodule YappCast.Queries.Episodes do
   end
 
   def create(episode) do
-    YappCast.Queries.create(episode)
+    CastPub.Queries.create(episode)
   end
 
   def update(id, data) do
@@ -44,13 +44,13 @@ defmodule YappCast.Queries.Episodes do
       updating_episode ->
         
         updating_episode
-        |> YappCast.Queries.update_map_with_params(data, [
+        |> CastPub.Queries.update_map_with_params(data, [
             :title, :publish_date, 
             :author, :block, :image_url, :duration, 
             :explicit, :is_closed_captioned, :order, 
             :subtitle, :summary, :media_url
           ])
-        |> YappCast.Queries.update
+        |> CastPub.Queries.update
     end
   end
 

@@ -1,4 +1,4 @@
-defmodule YappCast.Models.Podcast do
+defmodule CastPub.Models.Podcast do
   use Ecto.Model
   use Vex.Struct
 
@@ -16,10 +16,10 @@ defmodule YappCast.Models.Podcast do
     field :owner_email, :string
     field :subtitle, :string
     field :summary, :string
-    belongs_to :user, YappCast.Models.User
-    has_many :episodes, YappCast.Models.Episode
-    has_many :categories, YappCast.Models.Podcast.Category
-    has_many :permission_groups, YappCast.Models.Podcast.PermissionGroup
+    belongs_to :user, CastPub.Models.User
+    has_many :episodes, CastPub.Models.Episode
+    has_many :categories, CastPub.Models.Podcast.Category
+    has_many :permission_groups, CastPub.Models.Podcast.PermissionGroup
   end
 
   validates :title, presence: true, length: [max: 255]

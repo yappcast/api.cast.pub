@@ -1,4 +1,4 @@
-defmodule YappCast.Models.Episode do
+defmodule CastPub.Models.Episode do
   use Ecto.Model
   use Vex.Struct
 
@@ -18,7 +18,7 @@ defmodule YappCast.Models.Episode do
     field :media_content_length, :integer
     field :media_mime_type, :string
     field :file_name, :string
-    belongs_to :podcast, YappCast.Models.Podcast
+    belongs_to :podcast, CastPub.Models.Podcast
   end
 
   validates :title, presence: true, length: [max: 255]

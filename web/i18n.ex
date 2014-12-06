@@ -1,4 +1,4 @@
-defmodule YappCast.I18n do
+defmodule CastPub.I18n do
   use Linguist.Vocabulary
 
   locale "en", Path.join([__DIR__, "../config/locales/en.exs"])

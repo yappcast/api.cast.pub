@@ -1,4 +1,4 @@
-defmodule YappCast.Repo.Migrations.Init do
+defmodule CastPub.Repo.Migrations.Init do
   use Ecto.Migration
 
   def up do

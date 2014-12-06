@@ -1,8 +1,8 @@
-defmodule YappCast.Queries.Users do
+defmodule CastPub.Queries.Users do
   import Ecto.Query
-  alias YappCast.Models.User
-  alias YappCast.Repo
-  alias YappCast.Auth
+  alias CastPub.Models.User
+  alias CastPub.Repo
+  alias CastPub.Auth
 
   def get(id) do
     Repo.get(User, id)

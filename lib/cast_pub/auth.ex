@@ -1,4 +1,4 @@
-defmodule YappCast.Auth do
+defmodule CastPub.Auth do
   
   def encrypt_password(password) do
     password = String.to_char_list(password)

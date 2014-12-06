@@ -1,5 +1,5 @@
-defmodule YappCast.Queries do
-  alias YappCast.Repo
+defmodule CastPub.Queries do
+  alias CastPub.Repo
   
   def update_map_with_params(input, params, key_whitelist) do
   {_, output} = Enum.map_reduce(key_whitelist, input, 

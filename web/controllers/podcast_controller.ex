@@ -1,6 +1,6 @@
-defmodule YappCast.PodcastController do
+defmodule CastPub.PodcastController do
   use Phoenix.Controller
-  alias YappCast.Queries.Podcasts
+  alias CastPub.Queries.Podcasts
 
   plug :action
 
@@ -11,9 +11,9 @@ defmodule YappCast.PodcastController do
 
     case Canada.Can.can?(conn.assigns.user, :read, podcast) do
       true ->
-        YappCast.Controllers.send_json(conn, podcast)
+        CastPub.Controllers.send_json(conn, podcast)
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)        
+        CastPub.Controllers.send_no_content(conn, 401)        
     end
   end
 
@@ -25,13 +25,13 @@ defmodule YappCast.PodcastController do
         case Podcasts.create(podcast) do
           {:error, errors} ->
             IO.puts("here")
-            YappCast.Controllers.send_json(conn, errors, 400)
+            CastPub.Controllers.send_json(conn, errors, 400)
           {:ok, podcast} ->
             IO.puts("here1")
-            YappCast.Controllers.send_json(conn, podcast)    
+            CastPub.Controllers.send_json(conn, podcast)    
         end
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)             
+        CastPub.Controllers.send_no_content(conn, 401)             
     end
   end
 
@@ -45,12 +45,12 @@ defmodule YappCast.PodcastController do
       true ->
         case Podcasts.update(podcast.id, params) do
           {:error, errors} ->
-            YappCast.Controllers.send_json(conn, errors, 400)
+            CastPub.Controllers.send_json(conn, errors, 400)
           {:ok, _} ->
-            YappCast.Controllers.send_no_content(conn)    
+            CastPub.Controllers.send_no_content(conn)    
         end
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)            
+        CastPub.Controllers.send_no_content(conn, 401)            
     end
   end
 
@@ -63,9 +63,9 @@ defmodule YappCast.PodcastController do
     case Canada.Can.can?(conn.assigns.user, :delete, podcast) do
       true ->
         Podcasts.delete(podcast.id)
-        YappCast.Controllers.send_no_content(conn)    
+        CastPub.Controllers.send_no_content(conn)    
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)            
+        CastPub.Controllers.send_no_content(conn, 401)            
     end
   end
 
@@ -77,7 +77,7 @@ defmodule YappCast.PodcastController do
 
     case podcast do
       nil ->
-        YappCast.Controllers.send_no_content(conn, 404)
+        CastPub.Controllers.send_no_content(conn, 404)
       _ ->
        render conn, "podcast.rss", "rss", podcast: podcast    
     end

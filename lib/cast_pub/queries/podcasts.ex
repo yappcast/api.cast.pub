@@ -1,7 +1,7 @@
-defmodule YappCast.Queries.Podcasts do
+defmodule CastPub.Queries.Podcasts do
   import Ecto.Query
-  alias YappCast.Models.Podcast
-  alias YappCast.Repo
+  alias CastPub.Models.Podcast
+  alias CastPub.Repo
 
   def get(id) do
     query = from u in Podcast,
@@ -43,7 +43,7 @@ defmodule YappCast.Queries.Podcasts do
   end
 
   def create(podcast) do
-    YappCast.Queries.create(podcast)
+    CastPub.Queries.create(podcast)
   end
 
   def update(id, data) do
@@ -53,13 +53,13 @@ defmodule YappCast.Queries.Podcasts do
       updating_podcast ->
         
         updating_podcast
-        |> YappCast.Queries.update_map_with_params(data, [
+        |> CastPub.Queries.update_map_with_params(data, [
             :title, :link, :copyright, 
             :author, :block, :image_url, 
             :explicit, :complete, :new_feed_url, 
             :owner, :owner_email, :subtitle, :summary
           ])
-        |> YappCast.Queries.update
+        |> CastPub.Queries.update
     end
   end
 

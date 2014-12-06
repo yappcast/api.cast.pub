@@ -1,4 +1,4 @@
-defmodule YappCast.Repo do
+defmodule CastPub.Repo do
   use Ecto.Repo, adapter: Ecto.Adapters.Postgres, env: Mix.env
 
   @doc "Adapter configuration"

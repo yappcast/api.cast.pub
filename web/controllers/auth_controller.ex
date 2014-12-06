@@ -1,15 +1,15 @@
-defmodule YappCast.AuthController do
+defmodule CastPub.AuthController do
   use Phoenix.Controller
-  alias YappCast.Queries.Users
+  alias CastPub.Queries.Users
   plug :action
 
   def create(conn, params) do
     case generate_token(params["email"], params["password"]) do
       {:ok, jwt} ->
-        YappCast.Controllers.send_json(conn, %{ token: jwt })
+        CastPub.Controllers.send_json(conn, %{ token: jwt })
       {:error, _} ->
         error = %{ status_code: 401, error: "Unable to authenticate", "description": "Invalid Username or Password" }
-        YappCast.Controllers.send_json(conn, error, 401)
+        CastPub.Controllers.send_json(conn, error, 401)
     end
   end
 

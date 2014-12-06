@@ -1,4 +1,4 @@
-defmodule YappCast.Router do
+defmodule CastPub.Router do
   use Phoenix.Router
 
   pipeline :before do
@@ -18,43 +18,43 @@ defmodule YappCast.Router do
   end
 
   defp get_user(conn, _value) do
-    assign conn, :user, YappCast.Queries.Users.get(conn.assigns.claims.user_id)
+    assign conn, :user, CastPub.Queries.Users.get(conn.assigns.claims.user_id)
   end
 
   scope "/" do
     pipe_through :browser
-    get "/", YappCast.PageController, :index, as: :pages
-    get "/podcasts/:id/rss", YappCast.PodcastController, :rss
-    get "/podcasts/:id/:episode_id/:file_name", YappCast.EpisodeController, :download
+    get "/", CastPub.PageController, :index, as: :pages
+    get "/podcasts/:id/rss", CastPub.PodcastController, :rss
+    get "/podcasts/:id/:episode_id/:file_name", CastPub.EpisodeController, :download
   end
 
-  post  "/api/auth",  YappCast.AuthController, :create
-  post  "/api/users", YappCast.UserController, :create
+  post  "/api/auth",  CastPub.AuthController, :create
+  post  "/api/users", CastPub.UserController, :create
 
   scope "/api" do
     pipe_through :api
 
     #TODO: Probably just make everything use ids instead of slugs
 
-    get  "/users/current", YappCast.UserController, :show
-    patch  "/users/current", YappCast.UserController, :update
-    delete "/users/current", YappCast.UserController, :destroy
+    get  "/users/current", CastPub.UserController, :show
+    patch  "/users/current", CastPub.UserController, :update
+    delete "/users/current", CastPub.UserController, :destroy
 
-    post "/podcasts", YappCast.PodcastController, :create
-    get "/podcasts/:id", YappCast.PodcastController, :show
-    patch "/podcasts/:id", YappCast.PodcastController, :update
-    delete "/podcasts/:id", YappCast.PodcastController, :destroy
+    post "/podcasts", CastPub.PodcastController, :create
+    get "/podcasts/:id", CastPub.PodcastController, :show
+    patch "/podcasts/:id", CastPub.PodcastController, :update
+    delete "/podcasts/:id", CastPub.PodcastController, :destroy
 
-    post "/podcasts/:id/permissions", YappCast.PodcastPermssionController, :create
-    get "/podcasts/:id/permissions", YappCast.PodcastPermssionController, :index
-    get "/podcasts/:id/permissions/:permission_id", YappCast.PodcastPermssionController, :show
-    patch "/podcasts/:id/permissions/:permission_id", YappCast.PodcastPermssionController, :update
-    delete "/podcasts/:id/permissions/:permission_id", YappCast.PodcastPermssionController, :destroy
+    post "/podcasts/:id/permissions", CastPub.PodcastPermssionController, :create
+    get "/podcasts/:id/permissions", CastPub.PodcastPermssionController, :index
+    get "/podcasts/:id/permissions/:permission_id", CastPub.PodcastPermssionController, :show
+    patch "/podcasts/:id/permissions/:permission_id", CastPub.PodcastPermssionController, :update
+    delete "/podcasts/:id/permissions/:permission_id", CastPub.PodcastPermssionController, :destroy
 
-    post "/episodes", YappCast.EpisodeController, :create
-    get "/episodes/:id", YappCast.EpisodeController, :show
-    patch "/episodes/:id", YappCast.EpisodeController, :update
-    delete "/episodes/:id", YappCast.EpisodeController, :destroy
+    post "/episodes", CastPub.EpisodeController, :create
+    get "/episodes/:id", CastPub.EpisodeController, :show
+    patch "/episodes/:id", CastPub.EpisodeController, :update
+    delete "/episodes/:id", CastPub.EpisodeController, :destroy
 
   end
 end

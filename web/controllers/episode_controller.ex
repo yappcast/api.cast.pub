@@ -1,6 +1,6 @@
-defmodule YappCast.EpisodeController do
+defmodule CastPub.EpisodeController do
   use Phoenix.Controller
-  alias YappCast.Queries.Episodes
+  alias CastPub.Queries.Episodes
 
   plug :action
 
@@ -11,9 +11,9 @@ defmodule YappCast.EpisodeController do
 
     case Canada.Can.can?(conn.assigns.user, :read, episode) do
       true ->
-        YappCast.Controllers.send_json(conn, episode)
+        CastPub.Controllers.send_json(conn, episode)
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)        
+        CastPub.Controllers.send_no_content(conn, 401)        
     end
   end
 
@@ -24,12 +24,12 @@ defmodule YappCast.EpisodeController do
       true ->
         case Episodes.create(episode) do
           {:error, errors} ->
-            YappCast.Controllers.send_json(conn, errors, 400)
+            CastPub.Controllers.send_json(conn, errors, 400)
           {:ok, episode} ->
-            YappCast.Controllers.send_json(conn, episode)    
+            CastPub.Controllers.send_json(conn, episode)    
         end
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)             
+        CastPub.Controllers.send_no_content(conn, 401)             
     end
   end
 
@@ -42,12 +42,12 @@ defmodule YappCast.EpisodeController do
       true ->
         case Episodes.update(episode.id, params) do
           {:error, errors} ->
-            YappCast.Controllers.send_json(conn, errors, 400)
+            CastPub.Controllers.send_json(conn, errors, 400)
           {:ok, _} ->
-            YappCast.Controllers.send_no_content(conn)    
+            CastPub.Controllers.send_no_content(conn)    
         end
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)            
+        CastPub.Controllers.send_no_content(conn, 401)            
     end
   end
 
@@ -59,9 +59,9 @@ defmodule YappCast.EpisodeController do
     case Canada.Can.can?(conn.assigns.user, :delete, episode) do
       true ->
         Episodes.delete(episode.id)
-        YappCast.Controllers.send_no_content(conn)    
+        CastPub.Controllers.send_no_content(conn)    
       false ->
-        YappCast.Controllers.send_no_content(conn, 401)            
+        CastPub.Controllers.send_no_content(conn, 401)            
     end
   end
 end

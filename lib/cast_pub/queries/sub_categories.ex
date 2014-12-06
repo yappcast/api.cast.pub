@@ -1,7 +1,7 @@
-defmodule YappCast.Queries.SubCategories do
+defmodule CastPub.Queries.SubCategories do
   import Ecto.Query
-  alias YappCast.Models.SubCategory
-  alias YappCast.Repo
+  alias CastPub.Models.SubCategory
+  alias CastPub.Repo
 
   def get(id) do
     Repo.get(SubCategory, id)
@@ -17,7 +17,7 @@ defmodule YappCast.Queries.SubCategories do
   end
 
   def create(sub_category) do
-    YappCast.Queries.create(sub_category)
+    CastPub.Queries.create(sub_category)
   end
 
   def update(id, data) do
@@ -26,8 +26,8 @@ defmodule YappCast.Queries.SubCategories do
         {:error, [{:error, :sub_category, :sub_category, "subcategory not found"}]}
       updating_sub_category ->
         updating_sub_category
-        |> YappCast.Queries.update_map_with_params(data, [:title])
-        |> YappCast.Queries.update
+        |> CastPub.Queries.update_map_with_params(data, [:title])
+        |> CastPub.Queries.update
     end
   end
 
