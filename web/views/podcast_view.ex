@@ -69,7 +69,7 @@ defmodule CastPub.PodcastView do
   end
 
   def output_episode_link_and_enclosure(episode) do
-    if episode.media_url do
+    case episode.media_url do
       nil ->
         ""
       media_url ->
