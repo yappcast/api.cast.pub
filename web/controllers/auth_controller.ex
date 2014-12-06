@@ -18,11 +18,11 @@ defmodule CastPub.AuthController do
       false ->
         {:error, "Invalid Username or Password"}
       true ->
-        secret = Application.get_env(:yapp_cast, :key)
+        secret = Application.get_env(:cast_pub, :key)
         user = Users.get_by_email(email)
 
         # Timex.Time.now(:secs) returns a float so we truncate it to an integer afterwards
-        expires = Timex.Time.now(:secs) + Application.get_env(:yapp_cast, :token_expires) |> trunc
+        expires = Timex.Time.now(:secs) + Application.get_env(:cast_pub, :token_expires) |> trunc
         Joken.encode(%{user_id: user.id, exp: expires}, secret, :HS256, %{})       
     end
   end

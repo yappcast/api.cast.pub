@@ -4,5 +4,5 @@ config :phoenix, CastPub.Router,
   http: [port: System.get_env("PORT") || 4001],
   catch_errors: false
 
-config :yapp_cast,
+config :cast_pub,
   database_url: "ecto://postgres@localhost/cast_pub_test?size=1&max_overflow=0"

@@ -3,9 +3,10 @@
 To start your new Phoenix application:
 
 1. Install dependencies with `mix deps.get`
-2. Create Database with `mix ecto.create CastPub.Repo`
-3. Run migrations with `mix ecto.migrate CastPub.Repo`
-4. Start Phoenix router with `mix phoenix.start`
+2. Rename config/<env>.exs.example to config/<env>.exs (where <env> is the environment)
+3. Create Database with `mix ecto.create CastPub.Repo`
+4. Run migrations with `mix ecto.migrate CastPub.Repo`
+5. Start Phoenix router with `mix phoenix.start`
 
 Now you can visit `localhost:4000` from your browser.
 

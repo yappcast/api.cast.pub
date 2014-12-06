@@ -25,7 +25,7 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :yapp_cast,
+config :cast_pub,
   database_url: "ecto://postgres@localhost/cast_pub_dev",
   key: "secret",
   token_expires: 3000,

@@ -19,6 +19,6 @@ config :phoenix, CastPub.Router,
 config :logger, :console,
   level: :info
 
-config :yapp_cast,
+config :cast_pub,
   database_url: "ecto://postgres@localhost/cast_pub_prod"
   password_work_factor: 12,

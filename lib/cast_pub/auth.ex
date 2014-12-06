@@ -2,7 +2,7 @@ defmodule CastPub.Auth do
   
   def encrypt_password(password) do
     password = String.to_char_list(password)
-    work_factor = Application.get_env(:yapp_cast, :password_work_factor)
+    work_factor = Application.get_env(:cast_pub, :password_work_factor)
     {:ok, salt} = :bcrypt.gen_salt(work_factor)
     {:ok, hash} = :bcrypt.hashpw(password, salt)
     :erlang.list_to_binary(hash)

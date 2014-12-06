@@ -13,7 +13,7 @@ defmodule CastPub.Router do
 
   pipeline :api do
     plug :accepts, ~w(json)
-    plug PlugJwt, secret: Application.get_env(:yapp_cast, :key)
+    plug PlugJwt, secret: Application.get_env(:cast_pub, :key)
     plug :get_user
   end
 

@@ -3,11 +3,11 @@ defmodule CastPub.Repo do
 
   @doc "Adapter configuration"
   def conf do
-    parse_url Application.get_env(:yapp_cast, :database_url)
+    parse_url Application.get_env(:cast_pub, :database_url)
   end
 
   @doc "The priv directory to load migrations and metadata."
   def priv do
-    app_dir(:yapp_cast, "priv/repo")
+    app_dir(:cast_pub, "priv/repo")
   end
 end

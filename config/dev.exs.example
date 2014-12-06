@@ -7,5 +7,5 @@ config :phoenix, CastPub.Router,
 # Enables code reloading for development
 config :phoenix, :code_reloader, true
 
-config :yapp_cast,
+config :cast_pub,
   database_url: "ecto://postgres@localhost/cast_pub_dev"
