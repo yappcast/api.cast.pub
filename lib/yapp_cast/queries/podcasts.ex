@@ -16,8 +16,9 @@ defmodule YappCast.Queries.Podcasts do
   def list(user_id) do
     query = from u in Podcast,
           where: u.user_id == ^user_id,
-         select: u,
-         preload: :episodes
+          left_join: e in u.episodes,
+          left_join: c in u.categories,
+          select: assoc(u, [episodes: e, categories: c])
 
     Repo.all(query)
   end

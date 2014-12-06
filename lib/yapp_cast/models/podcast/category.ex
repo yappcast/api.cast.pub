@@ -8,5 +8,4 @@ defmodule YappCast.Models.Podcast.Category do
     has_many :sub_categories, YappCast.Models.Podcast.SubCategory
   end
 
-  validates :title, presence: true, length: [max: 255]
 end
