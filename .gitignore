@@ -3,3 +3,6 @@
 /rel
 erl_crash.dump
 *.ez
+dev.exs
+prod.exs
+test.exs
