@@ -108,7 +108,7 @@ defmodule CastPub.Queries.Categories do
         ]
 
         Enum.each(categories, fn(category) ->
-          {:ok, saved_category } = Categories.create(%Category{ title: category.title })
+          {:ok, saved_category } = create(%Category{ title: category.title })
 
           Enum.each(category.sub_categories, fn(sub_category) ->
             {:ok, _ } = SubCategories.create(%SubCategory{ title: sub_category, category_id: saved_category.id })

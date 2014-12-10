@@ -30,6 +30,18 @@ defmodule CastPub.PodcastView do
     end
   end
 
+  def output_tag(true, tag) do
+    "<#{tag}>yes</#{tag}>"
+  end
+
+  def output_tag(false, tag) do
+    "<#{tag}>no</#{tag}>"
+  end
+
+  def output_tag(nil, _tag) do
+    ""
+  end
+
   def output_tag(value, tag) do
     "<#{tag}>#{escape_string(value)}</#{tag}>"
   end
@@ -46,18 +58,6 @@ defmodule CastPub.PodcastView do
     "<#{tag} href=\"#{escape_string(value)}\"/>"
   end
 
-  def output_tag(true, tag) do
-    "<#{tag}>yes</#{tag}>"
-  end
-
-  def output_tag(false, tag) do
-    "<#{tag}>no</#{tag}>"
-  end
-
-  def output_tag(nil, tag) do
-    ""
-  end
-
   def output_category(category, []) do
     "<itunes:category text=\"#{escape_string(category.get.category.title)}\"/>"
   end
@@ -72,7 +72,7 @@ defmodule CastPub.PodcastView do
     case episode.media_url do
       nil ->
         ""
-      media_url ->
+      _ ->
         url = get_episode_url(episode.podcast_id, episode.id, episode.file_name)
         |> escape_string
 

@@ -18,7 +18,7 @@ defmodule CastPub.Mixfile do
       mod: {CastPub, []},
       applications: [
         :phoenix, :cowboy, :logger, :postgrex, :ecto, 
-        :vex, :canada, :poison, :cmark, :joken, 
+        :vex, :canada, :poison, :joken, 
         :plug_cors, :plug_jwt, :bcrypt, :timex
       ]
     ]
@@ -36,7 +36,6 @@ defmodule CastPub.Mixfile do
       {:vex, "~> 0.5.0"},
       {:canada, "~> 1.0.0"},
       {:poison, "~> 1.2.0"},
-      {:cmark, "~> 0.2.0"},
       {:joken, "~> 0.7.0"},
       {:plug_jwt, "~> 0.4.0"},
       {:plug_cors, "~> 0.3.1"},

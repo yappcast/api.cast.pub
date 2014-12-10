@@ -34,8 +34,6 @@ defmodule CastPub.Router do
   scope "/api" do
     pipe_through :api
 
-    #TODO: Probably just make everything use ids instead of slugs
-
     get  "/users/current", CastPub.UserController, :show
     patch  "/users/current", CastPub.UserController, :update
     delete "/users/current", CastPub.UserController, :destroy

@@ -1,6 +1,5 @@
 %{"bcrypt": {:git, "git://github.com/opscode/erlang-bcrypt.git", "7515e80a5e16f62aef149709f6cc09995dd480be", []},
   "canada": {:hex, :canada, "1.0.0"},
-  "cmark": {:hex, :cmark, "0.2.0"},
   "conform": {:hex, :conform, "0.10.5"},
   "cowboy": {:hex, :cowboy, "1.0.0"},
   "cowlib": {:hex, :cowlib, "1.0.0"},

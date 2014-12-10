@@ -1,12 +1,11 @@
-defmodule Mix.Tasks.Yapp.Seed.Categories do
+defmodule Mix.Tasks.Castpub.Seed do
   use Mix.Task
   alias CastPub.Queries.Categories
 
-  @shortdoc "Seeds the Categories"
+  @shortdoc "Seeds the Database"
 
   @moduledoc """
-  Seeds the Categories.
-  https://itunes.apple.com/us/genre/podcasts/id26
+  Seeds the Database
 
   ## Command line options
 
@@ -14,14 +13,13 @@ defmodule Mix.Tasks.Yapp.Seed.Categories do
 
   ## Examples
 
-      mix yapp.seed.categories
+      mix castpub.seed
 
   """
   def run(args) do
     Mix.Task.run "app.start", args
 
     Categories.seed
-
     Mix.shell.info "Categories seeded"
   end
 end
