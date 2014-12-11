@@ -4,6 +4,11 @@ defmodule CastPub.PodcastController do
 
   plug :action
 
+  def index(conn, _params) do
+    podcasts = Podcasts.list(conn.assigns.user.id)
+    CastPub.Controllers.send_json(conn, podcasts)
+  end
+
   def show(conn, params) do
     podcast = params["id"]
     |> String.to_integer

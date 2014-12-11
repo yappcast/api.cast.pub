@@ -1,16 +1,14 @@
   defmodule AuthControllerTest do
   use ExUnit.Case
-  use ConnHelper
+  use RouterHelper
   alias CastPub.Repo
   alias CastPub.Models.User
   alias CastPub.Queries.Users
 
   setup_all context do
     Ecto.Migrator.run(Repo, "priv/repo/migrations", :up, [all: true])
-    CastPub.Router.start
 
     on_exit fn ->
-      CastPub.Router.stop
       Ecto.Migrator.run(Repo, "priv/repo/migrations", :down, [all: true])
     end
 

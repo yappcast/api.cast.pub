@@ -5,8 +5,6 @@ defmodule CastPub.View do
   # to this module and all other views that use this module.
   using do
     quote do
-      # Import common functionality
-      import CastPub.I18n
       import CastPub.Router.Helpers
 
       # Use Phoenix.HTML to import all HTML functions (forms, tags, etc)

@@ -1,18 +1,16 @@
 defmodule PodcastControllerTest do
   use ExUnit.Case
-  use ConnHelper
+  use RouterHelper
   alias CastPub.Repo
 
   setup context do
     Ecto.Migrator.run(Repo, "priv/repo/migrations", :up, [all: true])
-    CastPub.Router.start
 
     on_exit fn ->
-      CastPub.Router.stop
       Ecto.Migrator.run(Repo, "priv/repo/migrations", :down, [all: true])
     end
 
-    conn = call(CastPub.Router, :post, "/api/users", [email: "three@four.com", password: "two", name: "three"])
+    conn = call(CastPub.Router, :post, "/api/user", [email: "three@four.com", password: "two", name: "three"])
     user = Poison.decode!(conn.resp_body, keys: :atoms!)
 
     conn = call(CastPub.Router, :post, "/api/auth", [email: "three@four.com", password: "two"])

@@ -1,14 +1,8 @@
 defmodule CastPub.Router do
   use Phoenix.Router
 
-  pipeline :before do
-    plug :super
-    plug PlugCors, headers: ["Authorization", "Content-Type"]
-  end
-
   pipeline :browser do
     plug :accepts, ~w(html)
-    plug :fetch_session
   end
 
   pipeline :api do
@@ -29,25 +23,26 @@ defmodule CastPub.Router do
   end
 
   post  "/api/auth",  CastPub.AuthController, :create
-  post  "/api/users", CastPub.UserController, :create
+  post  "/api/user", CastPub.UserController, :create
 
   scope "/api" do
     pipe_through :api
 
-    get  "/users/current", CastPub.UserController, :show
-    patch  "/users/current", CastPub.UserController, :update
-    delete "/users/current", CastPub.UserController, :destroy
+    get  "/user", CastPub.UserController, :show
+    patch  "/user", CastPub.UserController, :update
+    delete "/user", CastPub.UserController, :destroy
 
+    get "/podcasts", CastPub.PodcastController, :index
     post "/podcasts", CastPub.PodcastController, :create
     get "/podcasts/:id", CastPub.PodcastController, :show
     patch "/podcasts/:id", CastPub.PodcastController, :update
     delete "/podcasts/:id", CastPub.PodcastController, :destroy
 
-    post "/podcasts/:id/permissions", CastPub.PodcastPermssionController, :create
-    get "/podcasts/:id/permissions", CastPub.PodcastPermssionController, :index
-    get "/podcasts/:id/permissions/:permission_id", CastPub.PodcastPermssionController, :show
-    patch "/podcasts/:id/permissions/:permission_id", CastPub.PodcastPermssionController, :update
-    delete "/podcasts/:id/permissions/:permission_id", CastPub.PodcastPermssionController, :destroy
+    get "/permissions", CastPub.PodcastPermssionController, :index
+    post "/permissions", CastPub.PodcastPermssionController, :create
+    get "/permissions/:id", CastPub.PodcastPermssionController, :show
+    patch "/permissions/:id", CastPub.PodcastPermssionController, :update
+    delete "/permissions/:id", CastPub.PodcastPermssionController, :destroy
 
     post "/episodes", CastPub.EpisodeController, :create
     get "/episodes/:id", CastPub.EpisodeController, :show

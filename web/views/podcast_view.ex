@@ -2,12 +2,12 @@ defmodule CastPub.PodcastView do
   use CastPub.View
 
   def get_episode_guid(podcast_id, episode_id) do
-    scheme_and_port = Phoenix.Router.Helpers.url(CastPub.Router)
+    scheme_and_port = CastPub.Enpoint.url(CastPub.Router)
     "#{scheme_and_port}/#{podcast_id}/#{episode_id}"
   end
 
   def get_episode_url(podcast_id, episode_id, file_name) do
-    scheme_and_port = Phoenix.Router.Helpers.url(CastPub.Router)
+    scheme_and_port = CastPub.Enpoint.url(CastPub.Router)
     path = CastPub.Router.Helpers.episode_path(:download, podcast_id, episode_id, file_name)
     "#{scheme_and_port}#{path}"
   end

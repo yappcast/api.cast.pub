@@ -6,7 +6,7 @@
 use Mix.Config
 
 # Configures the router
-config :phoenix, CastPub.Router,
+config :cast_pub, CastPub.Endpoint,
   url: [host: "localhost"],
   http: [port: System.get_env("PORT")],
   https: false,
@@ -16,7 +16,7 @@ config :phoenix, CastPub.Router,
   error_controller: CastPub.PageController
 
 # Session configuration
-config :phoenix, CastPub.Router,
+config :cast_pub, CastPub.Endpoint,
   session: [store: :cookie,
             key: "_cast_pub_key"]
 
