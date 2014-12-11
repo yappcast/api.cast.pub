@@ -6,8 +6,7 @@ defmodule CastPub.Queries.Podcasts.Categories do
   def list(podcast_id) do
     query = from u in Category, 
             where: u.podcast_id == ^podcast_id, 
-            select: u, 
-            preload: :sub_categories
+            select: u
     Repo.all(query)
   end
 

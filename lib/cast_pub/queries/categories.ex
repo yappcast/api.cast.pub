@@ -1,8 +1,6 @@
 defmodule CastPub.Queries.Categories do
   import Ecto.Query
   alias CastPub.Models.Category
-  alias CastPub.Models.SubCategory
-  alias CastPub.Queries.SubCategories
   alias CastPub.Repo
 
   def get(id) do
@@ -11,8 +9,8 @@ defmodule CastPub.Queries.Categories do
 
   def list() do
     query = from u in Category, 
-    left_join: sc in u.sub_categories,
-    select: assoc(u, [sub_categories: sc])
+    left_join: sc in u.categories,
+    select: assoc(u, [categories: sc])
     Repo.all(query)
   end
 
@@ -111,7 +109,7 @@ defmodule CastPub.Queries.Categories do
           {:ok, saved_category } = create(%Category{ title: category.title })
 
           Enum.each(category.sub_categories, fn(sub_category) ->
-            {:ok, _ } = SubCategories.create(%SubCategory{ title: sub_category, category_id: saved_category.id })
+            {:ok, _ } = create(%Category{ title: sub_category, category_id: saved_category.id })
           end)
 
         end)

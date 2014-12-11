@@ -7,7 +7,7 @@ defmodule CastPub.Models.User do
     field :password, :string
     field :name, :string
     has_many :podcasts, CastPub.Models.Podcast
-    has_many :user_podcast_permissions, CastPub.Models.UserPodcastPermission
+    has_many :podcast_permission_group_members, CastPub.Models.Podcasts.PermissionGroupMember
   end
 
   validates :email, presence: true, length: [max: 255]

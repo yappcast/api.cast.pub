@@ -59,13 +59,13 @@ defmodule CastPub.PodcastView do
   end
 
   def output_category(category, []) do
-    "<itunes:category text=\"#{escape_string(category.get.category.title)}\"/>"
+    "<itunes:category text=\"#{escape_string(category.title)}\"/>"
   end
   
   def output_category(category, sub_categories) do
     subcategories = Enum.map(sub_categories, fn(x) -> output_category(x, []) end)
     |> Enum.join
-    "<itunes:category text=\"#{escape_string(category.get.category.title)}\">#{subcategories}</itunes:category>"
+    "<itunes:category text=\"#{escape_string(category.title)}\">#{subcategories}</itunes:category>"
   end
 
   def output_episode_link_and_enclosure(episode) do

@@ -4,7 +4,8 @@ defmodule CastPub.Models.Category do
 
   schema "categories" do
     field :title, :string
-    has_many :sub_categories, CastPub.Models.SubCategory
+    belongs_to :category, CastPub.Models.Category
+    has_many :categories, CastPub.Models.Category
   end
 
   validates :title, presence: true, length: [max: 255]

@@ -55,13 +55,6 @@ defmodule CastPub.Repo.Migrations.Init do
       CREATE TABLE IF NOT EXISTS categories (
         id serial PRIMARY KEY, 
         title varchar(255) NOT NULL, 
-        podcast_id int references podcasts(id) ON DELETE CASCADE
-      )
-      """,
-      """
-      CREATE TABLE IF NOT EXISTS sub_categories (
-        id serial PRIMARY KEY, 
-        title varchar(255) NOT NULL, 
         category_id int references categories(id) ON DELETE CASCADE
       )
       """,
@@ -70,13 +63,6 @@ defmodule CastPub.Repo.Migrations.Init do
         id serial PRIMARY KEY, 
         podcast_id int references podcasts(id) ON DELETE CASCADE,
         category_id int references categories(id) ON DELETE CASCADE
-      )
-      """,
-      """
-      CREATE TABLE IF NOT EXISTS podcast_sub_categories (
-        id serial PRIMARY KEY, 
-        podcast_category_id int references podcast_categories(id) ON DELETE CASCADE,
-        sub_category_id int references sub_categories(id) ON DELETE CASCADE
       )
       """,
       """
@@ -103,10 +89,7 @@ defmodule CastPub.Repo.Migrations.Init do
 
       "CREATE INDEX ppg_podcast_id_idx ON podcast_permission_groups (podcast_id)",
       "CREATE INDEX ppgm_group_id_idx ON podcast_permission_group_members (group_id)",
-      "CREATE INDEX ppgm_user_id_idx ON podcast_permission_group_members (user_id)",
-
-      "CREATE INDEX category_podcast_id_idx ON categories (podcast_id)",
-      "CREATE INDEX sub_category_category_id_idx ON sub_categories (category_id)"
+      "CREATE INDEX ppgm_user_id_idx ON podcast_permission_group_members (user_id)"
     ]
   end
 
@@ -124,15 +107,12 @@ defmodule CastPub.Repo.Migrations.Init do
       "DROP INDEX IF EXISTS ppgm_group_id_idx",
       "DROP INDEX IF EXISTS ppgm_user_id_idx",
 
-      "DROP INDEX IF EXISTS category_podcast_id_idx",
       "DROP INDEX IF EXISTS sub_category_category_id_idx",
 
       "DROP TABLE IF EXISTS podcast_permission_group_members",
       "DROP TABLE IF EXISTS podcast_permission_groups",
       "DROP TABLE IF EXISTS episodes",
-      "DROP TABLE IF EXISTS podcast_sub_categories",
       "DROP TABLE IF EXISTS podcast_categories",
-      "DROP TABLE IF EXISTS sub_categories",
       "DROP TABLE IF EXISTS categories",
       "DROP TABLE IF EXISTS podcasts",
       "DROP TABLE IF EXISTS users"
