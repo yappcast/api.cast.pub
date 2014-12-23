@@ -7,7 +7,7 @@ defmodule CastPub.PodcastView do
   end
 
   def get_episode_url(podcast_id, episode_id, file_name) do
-    scheme_and_port = CastPub.Enpoint.url(CastPub.Router)
+    scheme_and_port = CastPub.Endpoint.url(CastPub.Router)
     path = CastPub.Router.Helpers.episode_path(:download, podcast_id, episode_id, file_name)
     "#{scheme_and_port}#{path}"
   end
@@ -44,6 +44,10 @@ defmodule CastPub.PodcastView do
 
   def output_tag(value, tag) do
     "<#{tag}>#{escape_string(value)}</#{tag}>"
+  end
+
+  def output_tag(nil, _tag, _) do
+    ""
   end
 
   def output_tag(value, tag, :cdata) do

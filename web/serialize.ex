@@ -32,15 +32,37 @@ defimpl CastPub.Serialize, for: CastPub.Models.User do
   def public(user), do: Map.take(user, [:id, :email, :name])
 end
 
+defimpl CastPub.Serialize, for: CastPub.Models.Podcast.Category do
+  def private(podcast_category) do
+    category = podcast_category.category.get
+    %{category: category, id: podcast_category.id}
+  end
+  def public(podcast_category) do
+    category = podcast_category.category.get
+    %{category: category, id: podcast_category.id}
+  end
+end
 
 defimpl CastPub.Serialize, for: CastPub.Models.Podcast do
-  def private(podcast), do: Map.take(podcast, [
+  def private(podcast) do
+    new_podcast = Map.take(podcast, [
     :id, :title, :link, :copyright, :author, :block, :image_url, 
     :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary])
+    categories = Enum.map(podcast.categories.all, fn(x) -> CastPub.Serialize.public(x) end)
+    episodes = Enum.map(podcast.categories.all, fn(x) -> CastPub.Serialize.public(x) end)
+    Map.put(new_podcast, :categories, categories)
+    |> Map.put(:episodes, episodes)
+  end
   
-  def public(podcast), do: Map.take(podcast, [
+  def public(podcast) do
+    new_podcast = Map.take(podcast, [
     :id, :title, :link, :copyright, :author, :block, :image_url, 
     :explicit, :complete, :new_feed_url, :owner, :owner_email, :subtitle, :summary])
+    categories = Enum.map(podcast.categories.all, fn(x) -> CastPub.Serialize.public(x) end)
+    episodes = Enum.map(podcast.categories.all, fn(x) -> CastPub.Serialize.public(x) end)
+    Map.put(new_podcast, :categories, categories)
+    |> Map.put(:episodes, episodes)
+  end
 end
 
 defimpl CastPub.Serialize, for: CastPub.Models.Episode do

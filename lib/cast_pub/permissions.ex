@@ -3,7 +3,7 @@ defimpl Canada.Can, for: CastPub.Models.User do
     user.id == id
   end
 
-  def can?(_, :create, %CastPub.Models.Podcast{}) do
+  def can?(_user, :create, %CastPub.Models.Podcast{}) do
     true
   end
 

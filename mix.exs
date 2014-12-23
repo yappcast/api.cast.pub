@@ -39,7 +39,7 @@ defmodule CastPub.Mixfile do
       {:poison, "~> 1.2.0"},
       {:joken, "~> 0.7.0"},
       {:plug_jwt, "~> 0.4.0"},
-      {:plug_cors, "~> 0.3.1"},
+      {:plug_cors, "~> 0.6.0"},
       {:bcrypt, github: "opscode/erlang-bcrypt"},
       {:timex, "~> 0.13.1"},
       {:exrm, "~> 0.14.12"}

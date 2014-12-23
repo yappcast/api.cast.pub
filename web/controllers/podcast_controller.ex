@@ -23,11 +23,10 @@ defmodule CastPub.PodcastController do
   end
 
   def create(conn, params) do
-    podcast = Podcasts.build_podcast_from_params(params, conn.assigns.user)
-
+    {podcast, categories} = Podcasts.build_podcast_from_params(params, conn.assigns.user)
     case Canada.Can.can?(conn.assigns.user, :create, podcast) do
       true ->
-        case Podcasts.create(podcast) do
+        case Podcasts.create(podcast, categories) do
           {:error, errors} ->
             IO.puts("here")
             CastPub.Controllers.send_json(conn, errors, 400)

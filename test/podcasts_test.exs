@@ -25,7 +25,7 @@ defmodule PodcastsTest do
     owner: context[:user].name, 
     owner_email: context[:user].email }
 
-    {:ok, saved_podcast } = Podcasts.create(podcast)
+    {:ok, saved_podcast } = Podcasts.create(podcast, [])
     assert podcast.title == saved_podcast.title
   end
 
@@ -34,7 +34,7 @@ defmodule PodcastsTest do
     user_id: context[:user].id, 
     owner: context[:user].name, 
     owner_email: context[:user].email }
-    {:ok, saved_podcast } = Podcasts.create(podcast)
+    {:ok, saved_podcast } = Podcasts.create(podcast, [])
     
     {status, _} = Podcasts.update(saved_podcast.id, %{"title" => "newTitle"})
     assert status == :ok
@@ -51,7 +51,7 @@ defmodule PodcastsTest do
     user_id: context[:user].id, 
     owner: context[:user].name, 
     owner_email: context[:user].email }
-    {:ok, saved_podcast } = Podcasts.create(podcast)
+    {:ok, saved_podcast } = Podcasts.create(podcast, [])
 
     assert Canada.Can.can?(context[:user], :read, saved_podcast) == true
     assert Canada.Can.can?(user_two, :read, saved_podcast) == false

@@ -24,7 +24,7 @@ defmodule CastPub.Queries.Podcasts do
   end
 
   def build_podcast_from_params(params, user) do
-    %Podcast{
+    podcast = %Podcast{
       title: Dict.get(params, "title"),
       link: Dict.get(params, "link"),
       copyright: Dict.get(params, "copyright"),
@@ -40,26 +40,49 @@ defmodule CastPub.Queries.Podcasts do
       summary: Dict.get(params, "summary"),
       user_id: user.id
     }
+
+    {podcast, Dict.get(params, "categories", [])}
   end
 
-  def create(podcast) do
-    CastPub.Queries.create(podcast)
+  def create(podcast, categories) do
+    case Vex.errors(podcast) do
+      [] ->
+        Repo.transaction(fn ->
+          saved_podcast = Repo.insert(podcast)
+          CastPub.Queries.Podcasts.Categories.create_podcast_categories(saved_podcast.id, categories)
+          get(saved_podcast.id)
+        end)
+      errors ->
+        {:error, errors}       
+    end
   end
 
   def update(id, data) do
     case get(id) do
       nil ->
-        {:error, [{:error, :company, :company, "company not found"}]}
+        {:error, [{:error, :podcast, :podcast, "podcast not found"}]}
       updating_podcast ->
-        
-        updating_podcast
-        |> CastPub.Queries.update_map_with_params(data, [
-            :title, :link, :copyright, 
-            :author, :block, :image_url, 
-            :explicit, :complete, :new_feed_url, 
-            :owner, :owner_email, :subtitle, :summary
-          ])
-        |> CastPub.Queries.update
+
+        case Vex.errors(updating_podcast) do
+          [] ->
+            Repo.transaction(fn ->
+              updating_podcast
+              |> CastPub.Queries.update_map_with_params(data, [
+                  :title, :link, :copyright, 
+                  :author, :block, :image_url, 
+                  :explicit, :complete, :new_feed_url, 
+                  :owner, :owner_email, :subtitle, :summary
+                ])
+              |> Repo.update
+
+              if Dict.get(data, "categories", nil) != nil do
+                CastPub.Queries.Podcasts.Categories.create_podcast_categories(updating_podcast.id, Dict.get(data, "categories"))          
+              end
+            end)
+
+          errors ->
+            {:error, errors}       
+        end
     end
   end
 
