@@ -1,3 +1,68 @@
+defmodule CastPub.Serializers do
+
+  defmodule PublicUser do
+    use Kitsune.JSON
+
+    property :id
+    property :email
+    property :name
+
+  end
+
+  defmodule PublicCategory do
+    use Kitsune.JSON
+
+    property :id
+    property :category_id
+    property :name
+
+  end
+
+  defmodule PublicPodcast do
+    use Kitsune.JSON
+
+    property :id
+    property :user_id
+    property :title
+    property :link
+    property :copyright
+    property :author
+    property :block
+    property :image_url
+    property :explicit
+    property :complete
+    property :new_feed_url
+    property :owner
+    property :owner_email
+    property :subtitle
+    property :summary
+    collection :episodes, extend: PublicEpisode, from: CastPub.Models.Episode
+    collection :categories, extend: PublicCategory, from: CastPub.Models.Podcast.Category
+
+  end
+
+  defmodule PublicEpisode do
+    use Kitsune.JSON
+
+    property :id
+    property :podcast_id
+    property :title
+    property :publish_date
+    property :author
+    property :block
+    property :image_url
+    property :duration
+    property :explicit
+    property :is_closed_captioned
+    property :order
+    property :subtitle
+    property :summary
+    property :media_url
+
+  end
+
+end
+
 defprotocol CastPub.Serialize do
     @doc "For showing all data to owners and admins"
     @fallback_to_any true
