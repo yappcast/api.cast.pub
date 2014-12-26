@@ -19,7 +19,7 @@
     <%= output_tag(@podcast.image_url, "itunes:image", :image) %>
 
     <%= for category <- @podcast.categories.all || [] do %>
-      <%= output_category(category, category.sub_categories) %>      
+      <%= output_category(category) %>      
     <% end %>
 
     <%= for episode <- @podcast.episodes.all || [] do %>

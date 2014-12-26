@@ -4,7 +4,12 @@ defmodule CastPub.Queries.Categories do
   alias CastPub.Repo
 
   def get(id) do
-    Repo.get(Category, id)
+    query = from u in Category,
+          where: u.id == ^id,
+          left_join: sc in u.categories,
+          select: assoc(u, [categories: sc])
+
+    Repo.one(query)
   end
 
   def list() do

@@ -4,7 +4,15 @@ defmodule CastPub.Controllers do
   def send_json(conn, body, status \\ 200) do
     conn
     |> put_status(status)
-    |> json(CastPub.Serialize.public(body))
+    |> json(body)
+    |> halt
+  end
+
+  def send_model(conn, body, serializer, status \\ 200) do
+    conn
+    |> put_status(status)
+    |> put_resp_content_type("application/json")
+    |> json(serializer.to_json(body))
     |> halt
   end
 

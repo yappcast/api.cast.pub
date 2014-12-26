@@ -24,7 +24,7 @@ defmodule CastPub.Endpoint do
 #    signing_salt: "<%= signing_salt %>",
 #    encryption_salt: "<%= encryption_salt %>"
 
-  plug PlugCors, headers: ["Authorization", "Content-Type"]
+  plug PlugCors, headers: ["Authorization", "Content-Type", "Referrer"]
 
   plug :router, CastPub.Router
 end

@@ -19,8 +19,9 @@ defmodule CastPub.Mixfile do
       applications: [
         :phoenix, :cowboy, :logger, :postgrex, :ecto, 
         :vex, :canada, :poison, :joken, 
-        :plug_cors, :plug_jwt, :bcrypt, :timex, :kitsune
-      ]
+        :plug_cors, :plug_jwt, :bcrypt, :timex, :kitsune, :faker
+      ],
+      env: [locale: :en]
     ]
   end
 
@@ -33,17 +34,18 @@ defmodule CastPub.Mixfile do
       {:plug, "0.9.0"},
       {:cowboy, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 0.2.0"},
+      {:ecto, "~> 0.3.0"},
       {:vex, "~> 0.5.0"},
       {:canada, "~> 1.0.0"},
-      {:poison, "~> 1.3.0"},
+      {:poison, "~> 1.3"},
       {:joken, "~> 0.7.0"},
       {:plug_jwt, "~> 0.4.0"},
       {:plug_cors, "~> 0.6.0"},
       {:bcrypt, github: "opscode/erlang-bcrypt"},
       {:timex, "~> 0.13.1"},
       {:exrm, "~> 0.14.12"},
-      {:kitsune, "~> 0.5.2"}
+      {:kitsune, "~> 0.5.2"},
+      {:faker, path: "/Users/bryanjos/projects/surgeforward/faker"}
    ]
   end
 end

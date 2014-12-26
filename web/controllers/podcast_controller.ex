@@ -6,7 +6,7 @@ defmodule CastPub.PodcastController do
 
   def index(conn, _params) do
     podcasts = Podcasts.list(conn.assigns.user.id)
-    CastPub.Controllers.send_json(conn, podcasts)
+    CastPub.Controllers.send_model(conn, podcasts, CastPub.Serializers.Podcasts)
   end
 
   def show(conn, params) do
@@ -16,7 +16,7 @@ defmodule CastPub.PodcastController do
 
     case Canada.Can.can?(conn.assigns.user, :read, podcast) do
       true ->
-        CastPub.Controllers.send_json(conn, podcast)
+        CastPub.Controllers.send_model(conn, podcast, CastPub.Serializers.Podcast)
       false ->
         CastPub.Controllers.send_no_content(conn, 401)        
     end
@@ -28,11 +28,9 @@ defmodule CastPub.PodcastController do
       true ->
         case Podcasts.create(podcast, categories) do
           {:error, errors} ->
-            IO.puts("here")
             CastPub.Controllers.send_json(conn, errors, 400)
           {:ok, podcast} ->
-            IO.puts("here1")
-            CastPub.Controllers.send_json(conn, podcast)    
+            CastPub.Controllers.send_model(conn, podcast, CastPub.Serializers.Podcast)    
         end
       false ->
         CastPub.Controllers.send_no_content(conn, 401)             

@@ -31,8 +31,8 @@ defmodule CastPub.Queries.Podcasts.Categories do
       delete_all(podcast_id)
 
       saved_podcast_categories = Enum.map(categories, fn(x) -> 
-        category = CastPub.Categories.get(x)
-        podcast_category = %CastPub.Models.Podcast.Category{podcast_id: podcast_id, category: category}
+        category = CastPub.Queries.Categories.get(x)
+        podcast_category = %CastPub.Models.Podcast.Category{podcast_id: podcast_id, category_id: category.id}
         create(podcast_category)
       end)
 

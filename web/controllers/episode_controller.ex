@@ -11,7 +11,7 @@ defmodule CastPub.EpisodeController do
 
     case Canada.Can.can?(conn.assigns.user, :read, episode) do
       true ->
-        CastPub.Controllers.send_json(conn, episode)
+        CastPub.Controllers.send_model(conn, episode, CastPub.Serializers.Episode)
       false ->
         CastPub.Controllers.send_no_content(conn, 401)        
     end
@@ -26,7 +26,7 @@ defmodule CastPub.EpisodeController do
           {:error, errors} ->
             CastPub.Controllers.send_json(conn, errors, 400)
           {:ok, episode} ->
-            CastPub.Controllers.send_json(conn, episode)    
+            CastPub.Controllers.send_model(conn, episode, CastPub.Serializers.Episode)    
         end
       false ->
         CastPub.Controllers.send_no_content(conn, 401)             

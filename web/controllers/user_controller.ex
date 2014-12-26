@@ -6,7 +6,7 @@ defmodule CastPub.UserController do
   plug :action
 
   def show(conn, _params) do
-    CastPub.Controllers.send_json(conn, conn.assigns.user)    
+    CastPub.Controllers.send_model(conn, conn.assigns.user, CastPub.Serializers.User)    
   end
 
   def create(conn, params) do
@@ -15,7 +15,7 @@ defmodule CastPub.UserController do
       {:error, errors} ->
         CastPub.Controllers.send_json(conn, errors, 400)
       {:ok, user} ->
-        CastPub.Controllers.send_json(conn, user)     
+        CastPub.Controllers.send_model(conn, user, CastPub.Serializers.User)     
     end
 
   end
@@ -32,14 +32,8 @@ defmodule CastPub.UserController do
   end
 
   def destroy(conn, _params) do
-
-    case Users.delete(conn.assigns.claims.user_id) do
-      :ok ->
-        CastPub.Controllers.send_no_content(conn)   
-      {:ok, _} ->
-        CastPub.Controllers.send_no_content(conn, 400)  
-    end
-
+    Users.delete(conn.assigns.claims.user_id)
+    CastPub.Controllers.send_no_content(conn)  
   end
   
 end

@@ -2,18 +2,24 @@ defmodule CastPub.PodcastView do
   use CastPub.View
 
   def get_episode_guid(podcast_id, episode_id) do
-    scheme_and_port = CastPub.Enpoint.url(CastPub.Router)
-    "#{scheme_and_port}/#{podcast_id}/#{episode_id}"
+    base_url = CastPub.Endpoint.url("/")
+    "#{base_url}#{podcast_id}/#{episode_id}"
   end
 
   def get_episode_url(podcast_id, episode_id, file_name) do
-    scheme_and_port = CastPub.Endpoint.url(CastPub.Router)
     path = CastPub.Router.Helpers.episode_path(:download, podcast_id, episode_id, file_name)
-    "#{scheme_and_port}#{path}"
+    CastPub.Endpoint.url(path)
   end
 
   def encode_date(date) do
-    Timex.DateFormat.format!(date, "{RFC1123}")
+    ecto_to_timex(date)
+    |> Timex.DateFormat.format!("{RFC1123}")
+  end
+
+  def ecto_to_timex(date) do
+    timex_date = {date.year, date.month, date.day}
+    timex_time = {date.hour, date.min, date.sec}
+    Timex.Date.from({timex_date,timex_time}, Timex.Date.timezone("GMT"))
   end
 
   def escape_string(str) do
@@ -62,8 +68,18 @@ defmodule CastPub.PodcastView do
     "<#{tag} href=\"#{escape_string(value)}\"/>"
   end
 
-  def output_category(category, []) do
-    "<itunes:category text=\"#{escape_string(category.title)}\"/>"
+  def output_category(category) do
+
+
+    actual_category = CastPub.Queries.Categories.get(category.category_id)
+
+    if actual_category.category_id == nil do
+      "<itunes:category text=\"#{escape_string(actual_category.title)}\"/>"
+    else
+      parent_catgory = CastPub.Queries.Categories.get(actual_category.category_id)
+      inner_xml = "<itunes:category text=\"#{escape_string(actual_category.title)}\"/>"
+      "<itunes:category text=\"#{escape_string(parent_catgory.title)}\">#{inner_xml}</itunes:category>"
+    end
   end
   
   def output_category(category, sub_categories) do
@@ -81,7 +97,7 @@ defmodule CastPub.PodcastView do
         |> escape_string
 
         link = "<link>#{escape_string(url)}</link>"
-        enclosure = "<enclosure url=\"#{url}\" length=\"#{episode.media_length}\" type=\"#{episode.media_mime_type}\"/>"
+        enclosure = "<enclosure url=\"#{url}\" length=\"#{episode.media_content_length}\" type=\"#{episode.media_mime_type}\"/>"
 
         link <> enclosure
     end
